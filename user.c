@@ -140,13 +140,13 @@ void register_pasien(User users[], int *user_count, int max_users) {
         // Validasi hanya huruf dan angka
         int valid = 1;
         for (int i = 0; i < strlen(username); i++) {
-            if (!isalnum(username[i])) {
+            if (!isalpha(username[i])) {
                 valid = 0;
                 break;
             }
         }
         if (!valid) {
-            printf("Registrasi gagal! Username hanya boleh berisi huruf dan angka.\n");
+            printf("Registrasi gagal! Username hanya boleh berisi huruf (tanpa angka).\n");
             continue; // ulangi
         }
 
@@ -229,7 +229,7 @@ void menu_login(User users[], int user_count) {
             printf("Selamat datang, %s (Role: %s)\n",
                    users[found].username,
                    users[found].role);
-            break;
+            exit(0);
         } else {
             printf("Password salah!\n");
         }
