@@ -229,7 +229,7 @@ void menu_login(User users[], int user_count) {
             printf("Selamat datang, %s (Role: %s)\n",
                    users[found].username,
                    users[found].role);
-            exit(0);
+            break;
         } else {
             printf("Password salah!\n");
         }
