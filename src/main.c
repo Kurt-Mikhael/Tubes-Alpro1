@@ -5,7 +5,7 @@
 
 int main() {
     User users[MAX_USERS];
-    int user_count = load_users("user.csv", users, MAX_USERS);
+    int user_count = load_users("data/user.csv", users, MAX_USERS);
     
     if (user_count == 0) {
         printf("Tidak ada data pengguna yang dapat dimuat.\n");

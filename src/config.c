@@ -141,7 +141,7 @@ int main() {
     Config cfg;
     initConfig(&cfg);
 
-    if (bacaConfigFile("config.txt", &cfg)) {
+    if (bacaConfigFile("data/config.txt", &cfg)) {
         printf("Denah: %dx%d, Kapasitas: %d\n", cfg.baris, cfg.kolom, cfg.kapasitas);
         for (int i = 0; i < cfg.jumlahRuangan; i++) {
             printf("Ruangan %d: Dokter ID %d, Pasien %d\n", i, cfg.ruangan[i].dokterId, cfg.ruangan[i].jumlahPasien);
