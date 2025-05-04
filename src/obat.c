@@ -3,7 +3,7 @@
 #include "obat.h"
 
 int load_obat(Obat daftar[]) {
-    FILE *file = fopen("obat.csv", "r");
+    FILE *file = fopen("data/obat.csv", "r");
     if (file == NULL) {
         printf("Error: File obat.csv tidak ditemukan!\n");
         return -1;
