@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "user.h"
 
 int parse_field(FILE* file, char* buffer, int max_len) {
@@ -136,28 +135,29 @@ void register_pasien(User users[], int *user_count, int max_users) {
         printf("Username: ");
         if (fgets(username, sizeof(username), stdin) == NULL) return;
         username[strcspn(username, "\n")] = '\0';
-
-        // Validasi hanya huruf dan angka
+    
+        // Validasi hanya huruf tanpa angka
         int valid = 1;
         for (int i = 0; i < strlen(username); i++) {
-            if (!isalpha(username[i])) {
+            char c = username[i];
+            if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
                 valid = 0;
                 break;
             }
         }
         if (!valid) {
             printf("Registrasi gagal! Username hanya boleh berisi huruf (tanpa angka).\n");
-            continue; // ulangi
+            continue; 
         }
-
+    
         if (username_exists(users, *user_count, username)) {
             printf("Registrasi gagal! Pasien dengan nama %s sudah terdaftar.\n", username);
-            continue; // ulangi
+            continue; 
         }
-
-        break; // lolos validasi, keluar loop
+    
+        break; //keluar loop
     }
-
+    
     printf("Password: ");
     if (fgets(password, sizeof(password), stdin) == NULL) return;
     password[strcspn(password, "\n")] = '\0';
