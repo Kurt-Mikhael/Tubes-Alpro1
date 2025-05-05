@@ -1,5 +1,6 @@
 #ifndef OBAT_H
 #define OBAT_H
+#define MAX_OBAT 100
 
 typedef struct
 {
