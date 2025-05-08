@@ -1,7 +1,7 @@
 #ifndef ADTSET_H
 #define ADTSET_H
 
-#include "adt-list.h"
+#include "adt-user.h"
 
 typedef struct
 {

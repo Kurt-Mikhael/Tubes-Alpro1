@@ -18,4 +18,11 @@ typedef struct {
 
 void createPenyakit(Penyakit* p);
 
+/* ADT List elemen Penyakit*/
+
+typedef struct
+{
+    /* data */
+} ListPenyakit;
+
 #endif

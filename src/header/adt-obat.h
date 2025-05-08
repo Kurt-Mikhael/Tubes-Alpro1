@@ -11,4 +11,11 @@ void createObat(Obat* o);
 
 int isObatValid(Obat o);
 
+/* ADT List elemen Obat*/
+
+typedef struct 
+{
+    /* data */
+} ListObat;
+
 #endif

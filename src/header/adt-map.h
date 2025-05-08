@@ -11,4 +11,6 @@ typedef struct
 
 void createMap(MapObatPenyakit* m_o_p);
 
+void printMap();
+
 #endif
