@@ -10,13 +10,19 @@
 typedef struct {
     User dokter;
     QueuePasien antrean;
-    int kapasitas;
+    int kapasitas; 
+    int pasienIds[100]; // array of pasienId
+    int jumlahPasien; // jumlah pasien dalam matriks
 } Ruangan;
 
 /* Struktur Matriks Ruangan Rumah Sakit*/
 typedef struct
 {
-    
+    int baris; // jumlah baris
+    int kolom; // jumlah kolom
+    int kapasitas; // kapasitas total
+
+    Ruangan ruangan[100]; // array of Ruangan
 } MatriksRuangan;
 
 void createRuangan(Ruangan* r);
