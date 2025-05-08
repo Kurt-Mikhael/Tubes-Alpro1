@@ -16,7 +16,7 @@
 void bacaUserCSV(ListUser* database);
 
 /* Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit daftar_penyakit */
-void bacaPenyakitCSV(ListPenyakit* daftar_penyakit);
+void bacaPenyakitCSV(ListPenyakit* daftar_penyakit, const char* filename);
 
 /* Membaca ListPenyakit, memindahkannya ke MapObatPenyakit sebagai key
 Membaca obat_penyakit.csv dan obat.csv lalu memindahkannya ke MapObatPenyakit sebagai value (dalam bentuk Stack) */

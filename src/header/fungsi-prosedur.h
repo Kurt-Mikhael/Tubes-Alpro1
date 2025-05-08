@@ -120,4 +120,8 @@ void minumPenawar();
 
 void exitRumahSakit(ListUser database);
 
+//tambahan
+int username_exists(User users[], int user_count, const char *username);
+
+
 #endif

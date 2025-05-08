@@ -4,6 +4,7 @@
 #include "adt-penyakit.h"
 #include "adt-obat.h"
 #include "adt-stack.h"
+#define MAX_USER 100
 
 typedef struct {
     int id;
@@ -32,10 +33,12 @@ int isUserValid(User u);
 
 /* ADT List elemen User*/
 
-typedef struct 
-{
-    /* data */
+typedef struct {
+    User data[MAX_USER];  // array of User
+    int jumlah;           // jumlah user
 } ListUser;
+
+User getUser(ListUser list, int index); //Andra, perlu di function login ama register
 
 void createListUser(ListUser* l);
 
