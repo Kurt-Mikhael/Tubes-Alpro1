@@ -20,7 +20,7 @@ void logout(User* current_user);
 
 void lupaPassword(ListUser* database);
 
-void help(User current_user);
+void help(User* current_user);
 
 void lihatDenah(MatriksRuangan denah);
 
