@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 void createListPenyakit(ListPenyakit* lp) {
     lp->jumlah = 0;
 }

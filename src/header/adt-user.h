@@ -27,6 +27,7 @@ typedef struct {
     StackObat perut;
 } User;
 
+
 void createUser(User* u);
 
 int isUserValid(User u);
@@ -38,9 +39,16 @@ typedef struct {
     int jumlah;           // jumlah user
 } ListUser;
 
-User getUser(ListUser list, int index); //Andra, perlu di function login ama register
+//Mengisi list user dengan MARK
+void createListUser(ListUser* l); 
 
-void createListUser(ListUser* l);
+//Menghitung jumlah user dalam list
+int listLength(ListUser l); 
+
+
+//Mengambil user dari list berdasarkan index
+User getUser(ListUser list, int index); 
+
 
 void insertUserLast(ListUser* l, User u);
 
