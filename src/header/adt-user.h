@@ -2,6 +2,7 @@
 #define ADTUSER_H
 
 #include "adt-penyakit.h"
+#include "adt-obat.h"
 #include "adt-stack.h"
 
 typedef struct {
@@ -21,11 +22,23 @@ typedef struct {
     int kadar_kolesterol;
     int kadar_kolesterol_ldl;
     int trombosit;
+    ListObat inventory;
     StackObat perut;
 } User;
 
 void createUser(User* u);
 
 int isUserValid(User u);
+
+/* ADT List elemen User*/
+
+typedef struct 
+{
+    /* data */
+} ListUser;
+
+void createListUser(ListUser* l);
+
+void insertUserLast(ListUser* l, User u);
 
 #endif
