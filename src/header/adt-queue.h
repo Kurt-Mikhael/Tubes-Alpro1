@@ -14,17 +14,20 @@ typedef struct queue {
 Queue* createQueue();
 
 /* Mendealokasikan Queue */
-void destroyQueue(Queue* q);
+void destroyQueue(Queue* antrean);
 
 /* Jika tidak ada antrean, mengembalikan true, else false*/
-boolean isEmpty(Queue q);
+boolean isEmpty(Queue antrean);
 
-int queueLength(Queue q);
+int queueLength(Queue antrean);
 
 /* Menambah elemen ke dalam antrean (paling belakang) */
-void enqueue(Queue *q, User x);
+void enqueue(Queue *antrean, User pasien);
 
 /* Mengembalikan elemen paling depan */
-User dequeue(Queue **q);
+User dequeue(Queue **antrean);
+
+/* Mengembalikan urutan User dalam Queue (HEAD = 0)*/
+int findInQueue(Queue antrean, User pasien);
 
 #endif

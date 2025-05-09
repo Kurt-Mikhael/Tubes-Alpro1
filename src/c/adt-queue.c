@@ -1,18 +1,19 @@
 #include "..\header\adt-queue.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 /* Menginisialisasi Queue kosong yang sudah dideklarasikan */
 Queue* createQueue() {
-    Queue* q = (Queue*) malloc(sizeof(Queue));
-    q->next = NULL;
-    createUser(&(q->pasien));
+    Queue* antrean = (Queue*) malloc(sizeof(Queue));
+    antrean->next = NULL;
+    createUser(&(antrean->pasien));
 }
 
 /* Mendealokasikan Queue */
-void destroyQueue(Queue* q) {
-    while ((*q).next != NULL) {
-        Address prev = q;
-        Address temp = ((*q).next);
+void destroyQueue(Queue* antrean) {
+    while ((*antrean).next != NULL) {
+        Address prev = antrean;
+        Address temp = ((*antrean).next);
         while ((*temp).next != NULL) {
             prev = temp;
             temp = (*temp).next;
@@ -20,21 +21,21 @@ void destroyQueue(Queue* q) {
         prev->next = NULL;
         free(temp);
     }
-    free(q);
+    free(antrean);
 }
 
 /* Jika tidak ada antrean, mengembalikan true, else false*/
-boolean isEmpty(Queue q) {
-    if (!isUserValid(q.pasien) && q.next == NULL) return 1;
+boolean isEmpty(Queue antrean) {
+    if (!isUserValid(antrean.pasien) && antrean.next == NULL) return 1;
     else return 0;
 }
 
-int queueLength(Queue q) {
-    if (isEmpty(q)) return 0;
+int queueLength(Queue antrean) {
+    if (isEmpty(antrean)) return 0;
     else {
         int length = 1;
-        while (q.next != NULL) {
-            q = *(q.next);
+        while (antrean.next != NULL) {
+            antrean = *(antrean.next);
             length++;
         }
         return length;
@@ -42,13 +43,13 @@ int queueLength(Queue q) {
 }
 
 /* Menambah elemen ke dalam antrean (paling belakang) */
-void enqueue(Queue *q, User x) {
-    if (isEmpty(*q)) q->pasien = x;
+void enqueue(Queue *antrean, User pasien) {
+    if (isEmpty(*antrean)) antrean->pasien = pasien;
     else {
         Address newNode = (Address) malloc(sizeof(Queue));
         newNode->next = NULL;
-        newNode->pasien = x;
-        Address temp = q;
+        newNode->pasien = pasien;
+        Address temp = antrean;
         while ((*temp).next != NULL) {
             temp = (*temp).next;
         }
@@ -57,19 +58,32 @@ void enqueue(Queue *q, User x) {
 }
 
 /* Mengembalikan elemen paling depan */
-User dequeue(Queue **q) {
+User dequeue(Queue **antrean) {
     User val;
-    if (isEmpty(**q)) {
+    if (isEmpty(**antrean)) {
         createUser(&val);
-    } else if ((**q).next == NULL) {
-        val = (**q).pasien;
-        createUser(&((*q)->pasien));
+    } else if ((**antrean).next == NULL) {
+        val = (**antrean).pasien;
+        createUser(&((*antrean)->pasien));
     } else {
-        Address temp = (**q).next;
-        val = (**q).pasien;
-        Queue* t = *q;
-        *q = temp;
+        Address temp = (**antrean).next;
+        val = (**antrean).pasien;
+        Queue* t = *antrean;
+        *antrean = temp;
         free(t);
     }
     return val;
+}
+
+int findInQueue(Queue antrean, User pasien) {
+    if (isEmpty(antrean)) return -1;
+    else {
+        int index = 0;
+        while (!isSameUser(antrean.pasien, pasien) && antrean.next != NULL) {
+            antrean = *(antrean.next);
+            index++;
+        }
+        if (isSameUser(antrean.pasien, pasien)) return index;
+        else return -1;
+    }
 }

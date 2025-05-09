@@ -4,6 +4,7 @@
 #include "adt-penyakit.h"
 #include "adt-obat.h"
 #include "adt-stack.h"
+#include "boolean.h"
 #define MAX_USER 100
 
 typedef struct {
@@ -28,9 +29,13 @@ typedef struct {
 } User;
 
 
-void createUser(User* u);
+void createUser(User* account);
 
-int isUserValid(User u);
+void destroyUser(User* account);
+
+int isUserValid(User account);
+
+boolean isSameUser(User account1, User account2);
 
 /* ADT List elemen User*/
 
@@ -40,16 +45,16 @@ typedef struct {
 } ListUser;
 
 //Mengisi list user dengan MARK
-void createListUser(ListUser* l); 
+void createListUser(ListUser* accountList); 
 
 //Menghitung jumlah user dalam list
-int listLength(ListUser l); 
+int listLength(ListUser accountList); 
 
 
 //Mengambil user dari list berdasarkan index
-User getUser(ListUser list, int index); 
+User getUser(ListUser accountList, int index); 
 
 
-void insertUserLast(ListUser* l, User u);
+void insertUserLast(ListUser* accountList, User account);
 
 #endif
