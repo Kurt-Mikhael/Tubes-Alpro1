@@ -2,10 +2,15 @@ id,username,password,role,riwayat_penyakit,suhu_tubuh,tekanan_darah_sistolik,tek
 1,userA,pass11,pasien,Anemia,36.1,92,77,66,93.7,127,52.4,177,193,54,328
 2,userB,pass22,pasien,COVID-19,36.6,126,85,67,96.5,175,45.7,156,235,139,212
 3,userC,pass33,pasien,Diabetes Mellitus,36.4,96,68,94,92.3,162,64.1,158,240,63,380
-4,userD,pass44,pasien,COVID-19,36.9,110,85,73,98.7,152,62.8,157,184,152,390
-5,userE,pass55,dokter,Diabetes Mellitus,,,,,,,,,,,
-6,userF,pass66,dokter,Anemia,,,,,,,,,,,
-7,userG,pass77,manager,Influenza,,,,,,,,,,,
-8,userH,pass88,pasien,Diabetes Mellitus,36.7,93,87,63,97.8,136,77,172,227,64,380
-9,userI,pass99,pasien,COVID-19,36.8,114,74,61,94.6,100,80.6,173,152,139,386
-10,userJ,pass110,pasien,Anemia,36.2,103,87,65,96.6,102,72.3,184,150,91,292
+4,userD,pass44,pasien,Influenza,36.9,110,85,73,98.7,152,62.8,157,184,152,390
+5,userE,pass55,pasien,Diabetes Mellitus,36.7,93,87,63,97.8,136,77,172,227,64,380
+6,userF,pass66,pasien,Hipertensi,36.8,114,74,61,94.6,100,80.6,173,152,139,386
+7,userG,pass77,manager,,,,,,,,,,,,,
+8,userH,pass88,dokter,,,,,,,,,,,,,
+9,userI,pass99,dokter,,,,,,,,,,,,,
+10,userJ,pass110,dokter,,,,,,,,,,,,,
+11,userK,pass111,dokter,,,,,,,,,,,,,
+12,userL,pas222,dokter,,,,,,,,,,,,,
+13,userM,pass333,dokter,,,,,,,,,,,,,
+14,userN,pass444,dokter,,,,,,,,,,,,,
+15,userO,pass555,dokter,,,,,,,,,,,,,
