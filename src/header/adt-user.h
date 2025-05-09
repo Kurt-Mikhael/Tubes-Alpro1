@@ -2,7 +2,10 @@
 #define ADTUSER_H
 
 #include "adt-penyakit.h"
+#include "adt-obat.h"
 #include "adt-stack.h"
+#include "boolean.h"
+#define MAX_USER 100
 
 typedef struct {
     int id;
@@ -21,11 +24,37 @@ typedef struct {
     int kadar_kolesterol;
     int kadar_kolesterol_ldl;
     int trombosit;
+    ListObat inventory;
     StackObat perut;
 } User;
 
-void createUser(User* u);
 
-int isUserValid(User u);
+void createUser(User* account);
+
+void destroyUser(User* account);
+
+int isUserValid(User account);
+
+boolean isSameUser(User account1, User account2);
+
+/* ADT List elemen User*/
+
+typedef struct {
+    User data[MAX_USER];  // array of User
+    int jumlah;           // jumlah user
+} ListUser;
+
+//Mengisi list user dengan MARK
+void createListUser(ListUser* accountList); 
+
+//Menghitung jumlah user dalam list
+int listLength(ListUser accountList); 
+
+
+//Mengambil user dari list berdasarkan index
+User getUser(ListUser accountList, int index); 
+
+
+void insertUserLast(ListUser* accountList, User account);
 
 #endif

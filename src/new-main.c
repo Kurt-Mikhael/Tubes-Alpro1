@@ -3,7 +3,6 @@
 #include "header\adt-obat.h"
 #include "header\adt-penyakit.h"
 #include "header\adt-user.h"
-#include "header\adt-list.h"
 #include "header\adt-map.h"
 #include "header\adt-matrix.h"
 #include "header\adt-queue.h"
@@ -29,8 +28,11 @@ int main(int argc, char *argv[]) {
 
     User* current_user;
     createUser(current_user);
+
     ListUser database_user;
     createListUser(&database_user);
+    bacaUserCSV(&database_user);
+    
     UsernameSet daftar_username;
     createUsernameSet(&daftar_username);
 

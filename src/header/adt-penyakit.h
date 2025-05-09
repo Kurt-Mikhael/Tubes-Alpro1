@@ -1,6 +1,8 @@
 #ifndef PENYAKIT_H
 #define PENYAKIT_H
 
+#define MAX_PENYAKIT 100 // Maksimal jumlah penyakit
+#define MAX_OBAT 100 // Maksimal jumlah obat dalam satu penyakit
 typedef struct {
     int id;
     char nama[50];
@@ -17,5 +19,12 @@ typedef struct {
 } Penyakit;
 
 void createPenyakit(Penyakit* p);
+
+/* ADT List elemen Penyakit*/
+
+typedef struct
+{
+    /* data */
+} ListPenyakit;
 
 #endif
