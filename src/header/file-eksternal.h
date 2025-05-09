@@ -5,6 +5,7 @@
 
 #include "adt-obat.h"
 #include "adt-penyakit.h"
+#include "obat_penyakit.h"
 #include "adt-user.h"
 #include "adt-map.h"
 #include "adt-matrix.h"
