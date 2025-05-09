@@ -1,13 +1,13 @@
 id,username,password,role,riwayat_penyakit,suhu_tubuh,tekanan_darah_sistolik,tekanan_darah_diastolik,detak_jantung,saturasi_oksigen,kadar_gula_darah,berat_badan,tinggi_badan,kadar_kolesterol,kadar_kolesterol_ldl,trombosit
-1,userA,pass11,pasien,Anemia,36.1,92,77,66,93.7,127,52.4,177,193,54,328
-2,userB,pass22,pasien,COVID-19,36.6,126,85,67,96.5,175,45.7,156,235,139,212
-3,userC,pass33,pasien,Diabetes Mellitus,36.4,96,68,94,92.3,162,64.1,158,240,63,380
-4,userD,pass44,pasien,Influenza,36.9,110,85,73,98.7,152,62.8,157,184,152,390
-5,userE,pass55,pasien,Diabetes Mellitus,36.7,93,87,63,97.8,136,77,172,227,64,380
-6,userF,pass66,pasien,Hipertensi,36.8,114,74,61,94.6,100,80.6,173,152,139,386
-7,userG,pass77,manager,,,,,,,,,,,,,
-8,userH,pass88,dokter,,,,,,,,,,,,,
-9,userI,pass99,dokter,,,,,,,,,,,,,
+1,userA,pass11,pasien,Anemia,36.8,110,70,95,97,98,52.3,158,165,90,130000
+2,userB,pass22,pasien,COVID-19,38.6,125,82,102,89,110,60.0,165,185,120,200000
+3,userC,pass33,pasien,Diabetes Mellitus,37.1,130,85,84,95,225,82.0,170,250,160,260000
+4,userD,pass44,pasien,Influenza,38.2,118,76,88,96,105,58.0,162,170,100,270000
+5,userE,pass55,pasien,Diabetes Mellitus,37.3,135,90,90,94,210,91.0,175,245,150,250000
+6,userF,pass66,pasien,Hipertensi,36.9,150,100,87,96,115,74.2,168,240,155,275000
+7,userG,pass77,pasien,Influenza,37.1,125,85,88,95,200,90.3,180,190,120,300000
+8,userH,pass88,pasien,Anemia,36.6,118,76,78,97,110,62.0,172,180,100,265000
+9,userI,pass99,manager,,,,,,,,,,,,,
 10,userJ,pass110,dokter,,,,,,,,,,,,,
 11,userK,pass111,dokter,,,,,,,,,,,,,
 12,userL,pas222,dokter,,,,,,,,,,,,,
