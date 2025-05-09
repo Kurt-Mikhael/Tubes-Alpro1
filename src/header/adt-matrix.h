@@ -12,7 +12,7 @@
 typedef struct {
     int kapasitas;
     User dokter;
-    ListUser pasien;
+    ListUser pasienMasuk;
     Queue* antrean;
 } Ruangan;
 
@@ -23,14 +23,18 @@ typedef struct {
     Ruangan ruang[MAX_ROWS][MAX_COLS];
 } MatriksRuangan;
 
-void createRuangan(Ruangan* r);
+void createRuangan(Ruangan* ruang);
 
-void createMatriksRuangan(MatriksRuangan* m_r);
+void destroyRuangan(Ruangan* ruang);
 
-void expandRow(MatriksRuangan* m_r);
+void createMatriksRuangan(MatriksRuangan* denah);
 
-void expandCol(MatriksRuangan* m_r);
+void destroyMatriksRuangan(MatriksRuangan* denah);
 
-boolean isUserInMatriks(User user, MatriksRuangan matriks);
+void expandRow(MatriksRuangan* denah);
+
+void expandCol(MatriksRuangan* denah);
+
+boolean isUserInMatriks(User user, MatriksRuangan denah);
 
 #endif

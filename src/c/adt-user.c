@@ -5,54 +5,81 @@
 #include "adt-user.h"
 #include <string.h>
 #define MARK_ID -1
-void createUser(User* u) {
-    u->id = MARK_ID;
-    strcpy(u->username, "");
-    strcpy(u->password, "");
-    strcpy(u->role, "");
-    u->suhu_tubuh = 0;
-    u->tekanan_darah_sistolik = 0;
-    u->tekanan_darah_diastolik = 0;
-    u->detak_jantung = 0;
-    u->saturasi_oksigen = 0;
-    u->kadar_gula_darah = 0;
-    u->berat_badan = 0;
-    u->tinggi_badan = 0;
-    u->kadar_kolesterol = 0;
-    u->kadar_kolesterol_ldl = 0;
-    u->trombosit = 0;
-    CreateListObat(&(u->inventory));
-    CreateStackObat(&(u->perut));
-    createPenyakit(&(u->riwayat_penyakit));
+void createUser(User* account) {
+    account->id = MARK_ID;
+    strcpy(account->username, "");
+    strcpy(account->password, "");
+    strcpy(account->role, "");
+    account->suhu_tubuh = 0;
+    account->tekanan_darah_sistolik = 0;
+    account->tekanan_darah_diastolik = 0;
+    account->detak_jantung = 0;
+    account->saturasi_oksigen = 0;
+    account->kadar_gula_darah = 0;
+    account->berat_badan = 0;
+    account->tinggi_badan = 0;
+    account->kadar_kolesterol = 0;
+    account->kadar_kolesterol_ldl = 0;
+    account->trombosit = 0;
+    CreateListObat(&(account->inventory));
+    CreateStackObat(&(account->perut));
+    createPenyakit(&(account->riwayat_penyakit));
 }
 
-int isUserValid(User u) {
-    return strlen(u.username) > 0;
+void destroyUser(User* account) {
+    account->id = MARK_ID;
+    strcpy(account->username, "");
+    strcpy(account->password, "");
+    strcpy(account->role, "");
+    account->suhu_tubuh = 0;
+    account->tekanan_darah_sistolik = 0;
+    account->tekanan_darah_diastolik = 0;
+    account->detak_jantung = 0;
+    account->saturasi_oksigen = 0;
+    account->kadar_gula_darah = 0;
+    account->berat_badan = 0;
+    account->tinggi_badan = 0;
+    account->kadar_kolesterol = 0;
+    account->kadar_kolesterol_ldl = 0;
+    account->trombosit = 0;
+    createListObat(&(account->inventory));
+    destroyStackObat(&(account->perut));
+    createPenyakit(&(account->riwayat_penyakit));
 }
 
-void createListUser(ListUser* l) {
-    l->jumlah = 0;
+int isUserValid(User account) {
+    // User dianggap valid jika memiliki username
+    return strlen(account.username) > 0;
+}
+
+boolean isSameUser(User account1, User account2) {
+    // 2 User dianggap sama jika id dan usernamenya sama
+    return (account1.id == account2.id && strcmp(account1.username, account2.username) == 0);
+}
+
+void createListUser(ListUser* accountList) {
+    accountList->jumlah = 0;
     for (int i = 0; i < MAX_USER; i++) {
-        createUser(&(l->data[i]));
+        createUser(&(accountList->data[i]));
     }
 }
 
-int listLength(ListUser l) {
+int listLength(ListUser accountList) {
     for(int i = 0; i < MAX_USER; i++) {
-        if (l.data[i].id == MARK_ID) {
-            l.jumlah = i;
+        if (accountList.data[i].id == MARK_ID) {
+            accountList.jumlah = i;
             break;
         }
     }
 }
 
-void insertUserLast(ListUser* l, User u) {
-    if (l->jumlah < MAX_USER) {
-        l->data[l->jumlah] = u;
-        l->jumlah++;
+void insertUserLast(ListUser* accountList, User account) {
+    if (accountList->jumlah < MAX_USER) {
+        accountList->data[accountList->jumlah] = account;
+        accountList->jumlah++;
     }
 }
-User getUser(ListUser list, int index) {
-    return list.data[index]; // Asumsi ListUser punya array `data`
+User getUser(ListUser accountList, int index) {
+    return accountList.data[index]; // Asumsi ListUser punya array `data`
 }
 
