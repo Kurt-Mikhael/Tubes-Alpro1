@@ -8,9 +8,12 @@ typedef struct
     char nama_obat[100];
 } Obat;
 
-void createObat(Obat* o);
 
-int isObatValid(Obat o);
+void createObat(Obat* new_obat);
+
+
+/*Returnt true jika obat valid*/
+int isObatValid(Obat obat);
 
 /* ADT List elemen Obat*/
 
@@ -21,19 +24,22 @@ typedef struct
 } ListObat;
 
 /*Mengisi list obat dengan MARK*/
-void createListObat(ListObat* l);
+void createListObat(ListObat*  list_obat);
 
-int isEmptyObat(ListObat l);
+/*Mengembalikan true jika list obat kosong*/
+int isEmptyObat(ListObat list_obat);
 
-int isFullObat(ListObat l);
+/*Mengembalikan true jika list obat penuh*/
+int isFullObat(ListObat     list_obat);
 
-void insertLastObat(ListObat* l, Obat o);
+/*Menambahkan obat ke list obat*/
+void insertLastObat(ListObat* list_obat , Obat obat);
 
-void deleteLastObat(ListObat* l, Obat* o);
+void deleteLastObat(ListObat* list_obat, Obat* obat);
 
-int lengthObat(ListObat l);
+int lengthListObat(ListObat list_obat);
 
-Obat getObatByID(ListObat l, int id);
+Obat getObatByID(ListObat list_obat, int id);
 
 
 #endif
