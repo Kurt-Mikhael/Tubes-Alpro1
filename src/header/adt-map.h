@@ -5,11 +5,13 @@
 #include "adt-stack.h"
 
 typedef struct
-{
-    /* data */
+{ // dummy
+    StackObat map[100];
 } MapObatPenyakit;
 
 void createMap(MapObatPenyakit* m_o_p);
+
+void destroyMap(MapObatPenyakit* m_o_p);
 
 void printMap();
 

@@ -15,9 +15,10 @@ boolean isUsernameSetEmpty(UsernameSet u_s);
 /*Memeriksa apakah username sudah terisi sebelumya*/
 boolean isUsernameSetValid(UsernameSet u_s);
 
-
 /*Menerima input username dan mengisi UsernameSet dengan username tersebut*/
 void createUsernameSet(UsernameSet* u_s);
+
+void copyListToSet(ListUser database, UsernameSet* daftar_nama);
 
 
 

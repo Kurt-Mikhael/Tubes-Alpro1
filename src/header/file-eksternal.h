@@ -17,11 +17,14 @@
 void bacaUserCSV(ListUser* database);
 
 /* Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit daftar_penyakit */
-void bacaPenyakitCSV(ListPenyakit* daftar_penyakit, const char* filename);
+void bacaPenyakitCSV(ListPenyakit* daftar_penyakit);
+
+/* Membaca obat.csv lalu memindahkannya ke daftar_obat*/
+void bacaObatCSV(ListObat* daftar_obat);
 
 /* Membaca ListPenyakit, memindahkannya ke MapObatPenyakit sebagai key
 Membaca obat_penyakit.csv dan obat.csv lalu memindahkannya ke MapObatPenyakit sebagai value (dalam bentuk Stack) */
-void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map);
+void bacaObatPenyakit(ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map);
 
 /* Membaca  line dan mengubahnya ke array*/
 void parseLineKeArray(const char* line, int* arr, int* len);
