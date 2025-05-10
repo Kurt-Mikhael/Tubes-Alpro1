@@ -27,9 +27,9 @@ boolean isUsernameInSet(UsernameSet set_nama, char nama[50]) {
     int r = set_nama.length - 1;
     while (l <= r) {
         int m = (l+r)/2;
-        if (strcmp(nama, set_nama.user_name[m]) > 0) {
+        if (strcasecmp(nama, set_nama.user_name[m]) > 0) {
             l = m + 1;
-        } else if (strcmp(nama, set_nama.user_name[m]) < 0) {
+        } else if (strcasecmp(nama, set_nama.user_name[m]) < 0) {
             r = m - 1;
         } else {
             return TRUE;
@@ -42,7 +42,7 @@ boolean isUsernameInSet(UsernameSet set_nama, char nama[50]) {
 void addUsernameToSet(UsernameSet* set_nama, char nama[50]) {
     if (!isUsernameInSet(*set_nama, nama)) {
         int i;
-        for (i = set_nama->length; strcmp(nama, set_nama->user_name[i-1]) > 0; i--) {
+        for (i = set_nama->length; strcasecmp(nama, set_nama->user_name[i-1]) > 0; i--) {
             strcpy(set_nama->user_name[i], set_nama->user_name[i-1]);
         }
         strcpy(set_nama->user_name[i], nama);
@@ -56,9 +56,9 @@ void deleteUsernameFromSet(UsernameSet* set_nama, char nama[50]) {
     int idx;
     while (l <= r) {
         int m = (l+r)/2;
-        if (strcmp(nama, set_nama->user_name[m]) > 0) {
+        if (strcasecmp(nama, set_nama->user_name[m]) > 0) {
             l = m + 1;
-        } else if (strcmp(nama, set_nama->user_name[m]) < 0) {
+        } else if (strcasecmp(nama, set_nama->user_name[m]) < 0) {
             r = m - 1;
         } else {
             idx = m;

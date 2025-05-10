@@ -5,7 +5,7 @@
 #include <string.h>
 #include "..\header\boolean.h"
 
-creatObat(Obat* new_obat){
+void createObat(Obat* new_obat){
     new_obat->obat_id = 0;
     strcpy(new_obat->nama_obat, "");
 }
@@ -17,6 +17,9 @@ int isObatValid(Obat obat){
 
 
 void createListObat(ListObat* list_obat){
+    for (int i = 0; i < MAX_OBAT; i++) {
+        createObat(&list_obat->data[i]);
+    }
     list_obat->jumlah = 0;
 }
 

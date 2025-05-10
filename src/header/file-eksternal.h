@@ -13,8 +13,11 @@
 #include "adt-set.h"
 #include "adt-stack.h"
 
+#define MAX_FIELD_LEN 100
+#define MAX_LINE_LEN 1024
+
 /* Membaca file user.csv lalu memindahkannya ke ListUser database */
-void bacaUserCSV(ListUser* database);
+int bacaUserCSV(ListUser* database, ListPenyakit daftar_penyakit);
 
 /* Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit daftar_penyakit */
 void bacaPenyakitCSV(ListPenyakit* daftar_penyakit);
@@ -30,7 +33,7 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, ListObat daftar_obat, MapOba
 void parseLineKeArray(const char* line, int* arr, int* len);
 
 /* Membaca config untuk membuat Rumah Sakit dengan ADT Matrix, load queue dalam matriks*/
-void bacaConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit map, ListObat* semuaObat);
+void bacaConfig(MatriksRuangan* denah, ListUser* database, ListObat semuaObat);
 
 /* Menulis ulang config berdasarkan Matrix denah dan database user.*/
 void tulisConfig(MatriksRuangan denah, ListUser database);

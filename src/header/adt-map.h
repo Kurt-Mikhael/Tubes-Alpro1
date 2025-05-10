@@ -2,6 +2,7 @@
 #define ADTMAP_H
 
 #include "adt-penyakit.h"
+#include "adt-obat.h"
 #include "adt-stack.h"
 
 typedef struct

@@ -5,13 +5,13 @@
 I.S : ListUser database, userId, inventory sudah terisi
 F.S : inventory pasien terisi dengan obat yang ada di database*/
 
-void TambahObatKePasien(ListUser *database, int pasienId, int obatId, ListObat *semuaObat) {
+void TambahObatKePasien(ListUser *database, int pasienId, int obatId, ListObat semuaObat) {
     for (int i = 0; i < database->jumlah; i++) {
         if (database->data[i].id == pasienId) {
             if (database->data[i].inventory.jumlah < MAX_OBAT) {
-                for (int j = 0; j < semuaObat->jumlah; j++) {
-                    if (semuaObat->data[j].obat_id == obatId) {
-                        database->data[i].inventory.data[database->data[i].inventory.jumlah] = semuaObat->data[j];
+                for (int j = 0; j < semuaObat.jumlah; j++) {
+                    if (semuaObat.data[j].obat_id == obatId) {
+                        database->data[i].inventory.data[database->data[i].inventory.jumlah] = semuaObat.data[j];
                         database->data[i].inventory.jumlah++;
                         return;
                     }
@@ -21,6 +21,117 @@ void TambahObatKePasien(ListUser *database, int pasienId, int obatId, ListObat *
     }
 }
 
+int parse_field(FILE* file, char* buffer, int max_len) {
+    int i = 0, c;
+
+    while ((c = fgetc(file)) != EOF) {
+        if (c == ',' || c == '\n' || c == '\r') {  // Ganti ; dengan ,
+            break;
+        }
+        if (i < max_len - 1) { 
+            buffer[i++] = (char)c;
+        }
+    }
+    buffer[i] = '\0';
+
+    if (c == EOF && i == 0) {
+        buffer[0] = '\0';
+        return EOF;
+    }
+
+    // Skip \r if present (for Windows-style \r\n)
+    if (c == '\r') {
+        int next_c = fgetc(file);
+        if (next_c != '\n' && next_c != EOF) {
+            ungetc(next_c, file);
+        }
+    }
+
+    return c;
+}
+
+int bacaUserCSV(ListUser* database, ListPenyakit daftar_penyakit) {
+    FILE *file = fopen("user.csv", "r");
+    if (!file) {
+        printf("Error: File tidak ditemukan!\n");
+        return 0;
+    }
+
+    char buffer[MAX_FIELD_LEN];
+    int count = 0, delimiter;
+
+    // Skip header line
+    while ((delimiter = fgetc(file)) != '\n' && delimiter != EOF);
+
+    while (count < MAX_USER) {
+        User parsed_user;
+        createUser(&parsed_user);
+        // Parse ID
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        if (delimiter == EOF || buffer[0] == '\0') break;
+        parsed_user.id = atoi(buffer);
+
+        // Parse username
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        strncpy(parsed_user.username, buffer, sizeof(parsed_user.username) - 1);
+        parsed_user.username[sizeof(parsed_user.username) - 1] = '\0';
+
+        // Parse password
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        strncpy(parsed_user.password, buffer, sizeof(parsed_user.password) - 1);
+        parsed_user.password[sizeof(parsed_user.password) - 1] = '\0';
+
+        // Parse role
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        strncpy(parsed_user.role, buffer, sizeof(parsed_user.role) - 1);
+        parsed_user.role[sizeof(parsed_user.role) - 1] = '\0';
+
+        // Parse remaining fields
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        char riwayat_sakit[50];
+        strncpy(riwayat_sakit, buffer, sizeof(riwayat_sakit) -1);
+        riwayat_sakit[sizeof(riwayat_sakit) -1] = '\0';
+        parsed_user.riwayat_penyakit = getPenyakitByName(daftar_penyakit, riwayat_sakit);
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.suhu_tubuh = (buffer[0]) ? atof(buffer) : 0.0f;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.tekanan_darah_sistolik = (buffer[0]) ? atoi(buffer) : 0;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.tekanan_darah_diastolik = (buffer[0]) ? atoi(buffer) : 0;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.detak_jantung = (buffer[0]) ? atoi(buffer) : 0;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.saturasi_oksigen = (buffer[0]) ? atof(buffer) : 0.0f;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.kadar_gula_darah = (buffer[0]) ? atoi(buffer) : 0;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.berat_badan = (buffer[0]) ? atof(buffer) : 0.0f;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.tinggi_badan = (buffer[0]) ? atoi(buffer) : 0;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.kadar_kolesterol = (buffer[0]) ? atoi(buffer) : 0;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.kadar_kolesterol_ldl = (buffer[0]) ? atoi(buffer) : 0;
+
+        delimiter = parse_field(file, buffer, MAX_FIELD_LEN);
+        parsed_user.trombosit = (buffer[0]) ? atoi(buffer) : 0;
+
+        insertUserLast(database, parsed_user);
+        destroyUser(&parsed_user);
+
+        count++;
+    }
+}
 
 /*
 Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit lp
@@ -205,10 +316,10 @@ void parseLineKeArray(const char* line, int* arr, int* len) {
 
 /*
 Membaca file config.txt lalu memindahkan datanya ke variabel-variabel yang sesuai
-I.S : MatriksRuangan denah, ListUser database, MapObatPenyakit map belum terisi, semuatObat terisi dengan obat-obat dari file obat.csv
-F.S : MatriksRuangan denah, ListUser database, MapObatPenyakit map terisi dengan data dari file config.txt
+I.S : MatriksRuangan denah tidak terdefinisi, ListUser database dan semuaObat terisi dari file CSV
+F.S : MatriksRuangan denah terisi, Queue dan inventory terisi dengan data dari file config.txt
 */
-void bacaConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit* map, ListObat* semuaObat) {
+void bacaConfig(MatriksRuangan* denah, ListUser* database, ListObat semuaObat) {
     FILE* file = fopen("config.txt", "r");
     if (!file) return;
 
@@ -230,7 +341,7 @@ void bacaConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit* map,
     // Inisialisasi matriks ruangan
     createMatrixRuangan(denah, baris, kolom, kapasitas);
 
-    // Baris 3 - (3+totalRuangan-1): Data ruangan
+    // Baris 3 - (3+totalRuangan-1): Data dokter dan pasien tiap ruangan
     for (int i = 0; i < totalRuangan; i++) {
         fgets(line, 256, file);
         parseLineKeArray(line, temp, &len);
