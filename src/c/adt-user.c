@@ -64,6 +64,13 @@ void createListUser(ListUser* accountList) {
     }
 }
 
+void destroyListUser(ListUser* accountList) {
+    accountList->jumlah = 0;
+    for (int i = 0; i < MAX_USER; i++) {
+        destroyUser(&(accountList->data[i]));
+    }
+}
+
 int listLength(ListUser accountList) {
     for(int i = 0; i < MAX_USER; i++) {
         if (accountList.data[i].id == MARK_ID) {

@@ -47,6 +47,8 @@ typedef struct {
 //Mengisi list user dengan MARK
 void createListUser(ListUser* accountList); 
 
+void destroyListUser(ListUser* accountList);
+
 //Menghitung jumlah user dalam list
 int listLength(ListUser accountList); 
 

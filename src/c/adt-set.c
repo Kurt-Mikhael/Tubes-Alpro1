@@ -5,26 +5,75 @@
 #include <stdlib.h>
 #include "boolean.h"
 
-boolean isUsernameSetEmpty(UsernameSet u_s) {
-    return strlen(u_s.user_name) == 0;
+/* Membuat set of username kosong*/
+void createUsernameSet(UsernameSet* set_nama) {
+    set_nama->length = 0;
+    for (int i = 0; i < MAX_USER; i++) {
+        strcpy(set_nama->user_name[i], "");
+    }
 }
 
-boolean isUsernameSetValid(UsernameSet u_s,ListUser list_user) {
-    for (int i = 0; i < list_user.jumlah; i++) {
-        if (strcmp(u_s.user_name, list_user.data[i].username) == 0) {
-            return FALSE; // Username sudah ada
+/* Mendealokasi set of username*/
+void destroyUsernameSet(UsernameSet* set_nama) {
+    set_nama->length = 0;
+    for (int i = 0; i < MAX_USER; i++) {
+        strcpy(set_nama->user_name[i], "");
+    }
+}
+
+/* Memeriksa apakah username sudah ada dalam set*/
+boolean isUsernameInSet(UsernameSet set_nama, char nama[50]) {
+    int l = 0;
+    int r = set_nama.length - 1;
+    while (l <= r) {
+        int m = (l+r)/2;
+        if (strcmp(nama, set_nama.user_name[m]) > 0) {
+            l = m + 1;
+        } else if (strcmp(nama, set_nama.user_name[m]) < 0) {
+            r = m - 1;
+        } else {
+            return TRUE;
         }
     }
-    return TRUE; // Username belum ada
+    return FALSE;
 }
 
-void createUsernameSet(UsernameSet* u_s, ListUser list_user) {
-    printf("Masukkan username: ");
-    do {
-        fgets(u_s->user_name, sizeof(u_s->user_name), stdin);
-        if (isUsernameSetEmpty(*u_s)) {
-            printf("Username tidak boleh kosong. Silakan coba lagi: ");
+/* Menambahkan username ke set jika belum ada di set*/
+void addUsernameToSet(UsernameSet* set_nama, char nama[50]) {
+    if (!isUsernameInSet(*set_nama, nama)) {
+        int i;
+        for (i = set_nama->length; strcmp(nama, set_nama->user_name[i-1]) > 0; i--) {
+            strcpy(set_nama->user_name[i], set_nama->user_name[i-1]);
         }
-    } while (!isUsernameSetValid(*u_s,list_user)&& isUsernameSetEmpty(*u_s));
-    u_s->user_name[strcspn(u_s->user_name, "\n")] = '\0'; // Menghapus newline
+        strcpy(set_nama->user_name[i], nama);
+    }
+}
+
+/* Menghapus username dari set*/
+void deleteUsernameFromSet(UsernameSet* set_nama, char nama[50]) {
+    int l = 0;
+    int r = set_nama->length - 1;
+    int idx;
+    while (l <= r) {
+        int m = (l+r)/2;
+        if (strcmp(nama, set_nama->user_name[m]) > 0) {
+            l = m + 1;
+        } else if (strcmp(nama, set_nama->user_name[m]) < 0) {
+            r = m - 1;
+        } else {
+            idx = m;
+            break;
+        }
+    }
+    for (int i = set_nama->length - 1; i > idx; i--) {
+        strcpy(set_nama->user_name[i-1], set_nama->user_name[i]);
+    }
+    set_nama->length--;
+}
+
+/* Menyalin username-username dari list of user ke set of username*/
+void copyListToSet(ListUser database, UsernameSet* daftar_nama) {
+    for (int i = 0; i < database.jumlah; i++) {
+        addUsernameToSet(daftar_nama, database.data[i].username);
+    }
 }

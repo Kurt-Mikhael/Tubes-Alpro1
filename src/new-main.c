@@ -89,6 +89,7 @@ int main(int argc, char *argv[]) {
     } while (opt != 'Y' && opt != 'N');
     if (opt == 'Y') tulisConfig(rumah_sakit, database_user);
     destroyUser(&current_user);
+    destroyListUser(&database_user);
     destroyMap(&resep_obat);
     destroyMatriksRuangan(&rumah_sakit);
 }
