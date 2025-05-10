@@ -15,6 +15,26 @@ void destroyRuangan(Ruangan* ruang) {
     createUser(&(ruang->dokter));
 }
 
+void printInfoRuangan(MatriksRuangan denah, int baris, int kolom){
+    printf("--- Informasi Ruangan %c%d ---\n", baris+'A', kolom);
+    printf("Kapasitas\t: 3\n");
+    User* doc = &denah.ruang[baris][kolom].dokter;
+    if (isUserValid(*doc)) {
+        printf("Dokter\t: %s\n", doc->username);
+    } else printf("Dokter\t: -\n");
+    printf("Pasien di dalam ruangan:\n");
+    Queue* antrean = denah.ruang[baris][kolom].antrean;
+    if (isEmpty(*antrean)) {
+        printf("Tidak ada pasien di dalam ruangan saat ini.\n");
+    } else {
+        for (int i = 1; i <= queueLength(*antrean); i++) {
+            printf ("%d.\t%s\n", i, *antrean->pasien.username);
+            antrean = antrean->next;
+        }
+    }
+    printf("---------------------------------------------\n");
+}
+
 void createMatriksRuangan(MatriksRuangan* denah) {
     denah->row = 0;
     denah->column = 0;
