@@ -28,6 +28,8 @@ void createRuangan(Ruangan* ruang);
 /* Destruktor Ruangan */
 void destroyRuangan(Ruangan* ruang);
 
+void printInfoRuangan(MatriksRuangan denah, int baris, int kolom);
+
 /* Konstruktor Matriks Ruangan */
 void createMatriksRuangan(MatriksRuangan* denah);
 
