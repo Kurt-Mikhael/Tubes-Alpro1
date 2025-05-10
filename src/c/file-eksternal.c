@@ -75,10 +75,7 @@ void bacaPenyakitCSV(ListPenyakit* lp) {
     fclose(file);
 }
 
-void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
-    ListObat daftar_obat;
-    createListObat(&daftar_obat);
-
+void bacaObatCSV(ListObat* daftar_obat) {
     // Mulai parsing obat.csv
     FILE *file_obat = fopen("obat.csv", "r");
     if (file_obat == NULL) {
@@ -90,6 +87,7 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
 
     // Lewati header
     fgets(line, sizeof(line), file_obat);
+
     while (fgets(line, 64, file_obat)) { // baca baris 1 per 1 hingga end of file
         Obat o;
         int id = 0;
@@ -116,9 +114,13 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
         for (int k = 0; k <= j; k++) {
             o.nama_obat[k] = nama[k];
         }
-        insertLastObat(&daftar_obat, o);
+        insertLastObat(daftar_obat, o);
     }
     fclose(file_obat);
+}
+
+
+void bacaObatPenyakit(ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map){
 
     // array yang menyatakan urutan obat tiap penyakit
     int urutan_obat[lengthPenyakit(daftar_penyakit)][MAX_OBAT];
@@ -143,15 +145,6 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
     // skip header
     fgets(buffer, sizeof(buffer), file);
 
-    while (fgets(buffer, sizeof(buffer), file))
-    {
-        (count)++;
-    }
-    rewind (file);
-    obatpenyakit* data =  (obatpenyakit*)malloc((count) * sizeof(obatpenyakit));
-
-    fgets(buffer, sizeof(buffer), file);
-
     int idx = 0;
     while (fgets(buffer, sizeof(buffer), file))
     {
@@ -174,9 +167,17 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
         }
         urutan_obat[read[1]-1][read[2]-1] = read[0];
         idx++;
-
     }
     fclose(file);
+
+    for (int i = 0; i < lengthPenyakit(daftar_penyakit); i++) {
+        int j = 0;
+        while (urutan_obat[i][j] != 0) {
+            pushStack(&map->map[i], getObatByID(daftar_obat, urutan_obat[i][j]));
+            j++;
+        }
+    }
+
     
     // Buat getPenyakitByID() sebagai key dan buat StackObat sebagai value Map
     

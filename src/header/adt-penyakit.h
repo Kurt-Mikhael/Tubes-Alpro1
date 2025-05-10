@@ -27,6 +27,8 @@ typedef struct
     /* data */
 } ListPenyakit;
 
+void createListPenyakit(ListPenyakit* database_penyakit);
+
 int lengthPenyakit(ListPenyakit daftar_penyakit);
 
 Penyakit getPenyakitByID(ListPenyakit l, int id);
