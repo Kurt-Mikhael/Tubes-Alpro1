@@ -6,13 +6,13 @@
 void createRuangan(Ruangan* ruang) {
     ruang->kapasitas = 0;
     createUser(&(ruang->dokter));
-    createListUser(&(ruang->pasienMasuk));
     ruang->antrean = createQueue();
 }
 
 void destroyRuangan(Ruangan* ruang) {
     ruang->kapasitas = 0;
-    
+    destroyQueue(ruang->antrean);
+    createUser(&(ruang->dokter));
 }
 
 void createMatriksRuangan(MatriksRuangan* denah) {
@@ -31,6 +31,24 @@ void expandRow(MatriksRuangan* denah) {
 
 void expandCol(MatriksRuangan* denah) {
     denah->column++;
+}
+
+void setDokterID(MatriksRuangan* denah, int index, int id_dokter, ListUser database) {
+    User dokter = getUserByID(database, id_dokter);
+    int target_row = index / denah->column;
+    int target_col = index % denah->column;
+    if (strcmp(dokter.role, "dokter") == 0) {
+        denah->ruang[target_row][target_col].dokter = dokter;
+    }
+}
+
+void addPasienToRuangan(MatriksRuangan* denah, int index, int id_pasien, ListUser database) {
+    User pasien = getUserByID(database, id_pasien);
+    int target_row = index / denah->column;
+    int target_col = index % denah->column;
+    if (strcmp(pasien.role, "pasien") == 0) {
+        enqueue(denah->ruang[target_row][target_col].antrean, pasien);
+    }
 }
 
 boolean isUserInMatriks(User user, MatriksRuangan denah) {

@@ -12,7 +12,6 @@
 typedef struct {
     int kapasitas;
     User dokter;
-    ListUser pasienMasuk;
     Queue* antrean;
 } Ruangan;
 
@@ -23,18 +22,31 @@ typedef struct {
     Ruangan ruang[MAX_ROWS][MAX_COLS];
 } MatriksRuangan;
 
+/* Konstruktor Ruangan */
 void createRuangan(Ruangan* ruang);
 
+/* Destruktor Ruangan */
 void destroyRuangan(Ruangan* ruang);
 
+/* Konstruktor Matriks Ruangan */
 void createMatriksRuangan(MatriksRuangan* denah);
 
+/* Destruktor Matriks Ruangan */
 void destroyMatriksRuangan(MatriksRuangan* denah);
 
+/* Set dokter dalam suatu ruangan dalam matriks menjadi dokter dengan id id_dokter.*/
+void setDokterID(MatriksRuangan* denah, int index, int id_dokter, ListUser database);
+
+/* Menambahkan pasien dengan id id_pasien ke antrean suatu ruangan dalam matriks*/
+void addPasienToRuangan(MatriksRuangan* denah, int index, int id_pasien, ListUser database);
+
+/* Menambah 1 baris ruangan untuk matriks ruangan dinamis */
 void expandRow(MatriksRuangan* denah);
 
+/* Menambah 1 kolom ruangan untuk matriks ruangan dinamis */
 void expandCol(MatriksRuangan* denah);
 
+/* Memeriksa apakah user sudah ada di dalam matriks ruangan */
 boolean isUserInMatriks(User user, MatriksRuangan denah);
 
 #endif

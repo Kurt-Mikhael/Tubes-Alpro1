@@ -50,10 +50,10 @@ void createListUser(ListUser* accountList);
 //Menghitung jumlah user dalam list
 int listLength(ListUser accountList); 
 
-
 //Mengambil user dari list berdasarkan index
 User getUser(ListUser accountList, int index); 
 
+User getUserByID(ListUser accountList, int id_user); 
 
 void insertUserLast(ListUser* accountList, User account);
 

@@ -128,9 +128,9 @@ void bacaConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit* map,
         fgets(line, 256, file);
         parseLineKeArray(line, temp, &len);
         int dokterId = temp[0];
-        SetDokterID(denah, i, dokterId);
+        setDokterID(denah, i, dokterId, *database);
         for (int j = 1; j < len; j++) {
-            AddPasienToRuangan(denah, i, temp[j]);
+            addPasienToRuangan(denah, i, temp[j], *database);
         }
     }
 
@@ -161,18 +161,19 @@ void saveConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit map) 
     char buffer[256];
 
     // Baris 1: ukuran denah
-    sprintf(buffer, "%d %d\n", denah->baris, denah->kolom);
+    sprintf(buffer, "%d %d\n", denah->row, denah->column);
     fputs(buffer, file);
 
     // Baris 2: kapasitas
-    sprintf(buffer, "%d\n", denah->kapasitas);
+    sprintf(buffer, "%d\n", denah->ruang[0][0].kapasitas);
     fputs(buffer, file);
 
     // Baris 3-...: ruangan
-    for (int i = 0; i < denah->baris * denah->kolom; i++) {
-        int pos = sprintf(buffer, "%d", denah->ruangan[i].dokter.id);
-        for (int j = 0; j < denah->ruangan[i].jumlahPasien; j++) {
-            pos += sprintf(buffer + pos, " %d", denah->ruangan[i].pasienIds[j]);
+    for (int i = 0; i < denah->row * denah->column; i++) {
+        int pos = sprintf(buffer, "%d", denah->ruang[i/denah->column][i % denah->column].dokter.id);
+        for (int j = 0; j < queueLength(*(denah->ruang[i/denah->column][i % denah->column].antrean))
+        ; j++) {
+            pos += sprintf(buffer + pos, " %d",dequeue(&(denah->ruang[i/denah->column][i % denah->column].antrean)).id);
         }
         sprintf(buffer + pos, "\n");
         fputs(buffer, file);
