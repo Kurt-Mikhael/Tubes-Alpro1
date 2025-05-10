@@ -27,7 +27,7 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map);
 void parseLineKeArray(const char* line, int* arr, int* len);
 
 /* Membaca config untuk membuat Rumah Sakit dengan ADT Matrix, load queue dalam matriks*/
-void bacaConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit map);
+void bacaConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit map, ListObat* semuaObat);
 
 /* Menulis ulang config berdasarkan Matrix denah dan database user.*/
 void tulisConfig(MatriksRuangan denah, ListUser database);

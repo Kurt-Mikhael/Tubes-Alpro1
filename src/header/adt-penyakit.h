@@ -27,4 +27,8 @@ typedef struct
     /* data */
 } ListPenyakit;
 
+int lengthPenyakit(ListPenyakit daftar_penyakit);
+
+Penyakit getPenyakitByID(ListPenyakit l, int id);
+
 #endif

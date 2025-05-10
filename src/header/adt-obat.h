@@ -33,7 +33,7 @@ void deleteLastObat(ListObat* l, Obat* o);
 
 int lengthObat(ListObat l);
 
-
+Obat getObatByID(ListObat l, int id);
 
 
 #endif

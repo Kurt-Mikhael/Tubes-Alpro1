@@ -27,10 +27,10 @@ Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit lp
 I.S : ListPenyakit lp sudah terisi
 F.S : ListPenyakit lp terisi dengan data dari file penyakit.csv
 */
-void bacaPenyakitCSV(ListPenyakit* lp, const char* filename) {
-    FILE* file = fopen(filename, "r");
+void bacaPenyakitCSV(ListPenyakit* lp) {
+    FILE* file = fopen("penyakit.csv", "r");
     if (file == NULL) {
-        printf("Error: File %s tidak ditemukan!\n", filename);
+        printf("Error: File \"penyakit.csv\" tidak ditemukan!\n");
         return;
     }
 
@@ -76,14 +76,71 @@ void bacaPenyakitCSV(ListPenyakit* lp, const char* filename) {
 }
 
 void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
+    ListObat daftar_obat;
+    createListObat(&daftar_obat);
+
+    // Mulai parsing obat.csv
+    FILE *file_obat = fopen("obat.csv", "r");
+    if (file_obat == NULL) {
+        printf("Error: File \"obat.csv\" tidak ditemukan!\n");
+        return;
+    }
+
+    char line[64];
+
+    // Lewati header
+    fgets(line, sizeof(line), file_obat);
+    while (fgets(line, 64, file_obat)) { // baca baris 1 per 1 hingga end of file
+        Obat o;
+        int id = 0;
+        char nama[64];
+        int i = 0, j = 0;
+
+        // parse id obat
+        while (i < 64 && line[i] != ',') {
+            id *= 10;
+            id += (line[i] - '0');
+            i++;
+        }
+        i++;
+
+        // parse nama obat
+        while (i+j < 64 && !(line[i+j] == '\0' || line[i+j] == '\n')) {
+            nama[j] = line[i+j];
+            j++;
+        }
+        nama[j] = '\0';
+
+        // tambahkan obat ke daftar obat
+        o.obat_id = id;
+        for (int k = 0; k <= j; k++) {
+            o.nama_obat[k] = nama[k];
+        }
+        insertLastObat(&daftar_obat, o);
+    }
+    fclose(file_obat);
+
+    // array yang menyatakan urutan obat tiap penyakit
+    int urutan_obat[lengthPenyakit(daftar_penyakit)][MAX_OBAT];
+    for (int i = 0; i < lengthPenyakit(daftar_penyakit); i++) {
+        for (int j = 0; i < MAX_OBAT; i++) {
+            // i menyatakan id penyakit - 1
+            // j menyatakan urutan - 1
+            urutan_obat[i][j] = 0;
+        }
+    }
+
+    // Mulai parsing obat_penyakit.csv
     FILE* file = fopen("obat_penyakit.csv", "r");
     if(!file){
-        printf("file tidak dapat dibuka");
-        return NULL;
+        printf("Error: File \"obat_penyakit.csv\" tidak ditemukan!\n");
+        return;
 
     }
     int count = 0;
     char buffer[64];
+
+    // skip header
     fgets(buffer, sizeof(buffer), file);
 
     while (fgets(buffer, sizeof(buffer), file))
@@ -98,6 +155,7 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
     int idx = 0;
     while (fgets(buffer, sizeof(buffer), file))
     {
+        int read[3]; // {obat_id, penyakit_id, urutan_minum}
         int nilai = 0;
         int cols = 0;
         int i = 0;
@@ -108,27 +166,19 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map){
                 i++;
             }
             else if(buffer[i] == ',' || buffer[i] == '\n'){
-                
-                if(cols == 0){
-                    data[idx].obat_id = nilai;
-                }
-                else if(cols == 1){
-                    data[idx].penyakit_id = nilai;
-                }
-                else if(cols == 2){
-                    data[idx].urutan_minum = nilai;
-                }
+                read[cols] = nilai;
                 i++;
                 nilai = 0;
                 cols++;
             }
         }
+        urutan_obat[read[1]-1][read[2]-1] = read[0];
         idx++;
 
     }
-    // data obat untuk penyakit di simpan di obatpenyakit* data
-
     fclose(file);
+    
+    // Buat getPenyakitByID() sebagai key dan buat StackObat sebagai value Map
     
 }
 /*
