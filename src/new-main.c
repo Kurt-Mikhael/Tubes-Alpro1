@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "header\adt-obat.h"
 #include "header\adt-penyakit.h"
 #include "header\adt-user.h"
@@ -26,20 +27,69 @@ int main(int argc, char *argv[]) {
 
     printf("Loading...\n");
 
-    User* current_user;
-    createUser(current_user);
+    // inisialisasi pengguna
+    User current_user;
+    createUser(&current_user); // done
 
+    // load data penyakit dari csv
+    ListPenyakit database_penyakit;
+    createListPenyakit(&database_penyakit); // done
+    bacaPenyakitCSV(&database_penyakit); // done
+
+    // load data obat dari csv
+    ListObat daftar_obat;
+    createListObat(&daftar_obat); // done
+    bacaObatCSV(&daftar_obat); // done
+
+    // load data akun dari csv
     ListUser database_user;
-    createListUser(&database_user);
-    bacaUserCSV(&database_user);
+    createListUser(&database_user); // done
+    bacaUserCSV(&database_user, database_penyakit); // done
     
+    // copy semua username di database ke set
     UsernameSet daftar_username;
-    createUsernameSet(&daftar_username);
+    createUsernameSet(&daftar_username); // done
+    copyListToSet(database_user, &daftar_username); // done
 
-    Load("if1210-tubes-2025-k01-i" /*nama folder*/);
-    char command[32];
-    /*
-    pokoknya while command bukan exit, minta command, jalanin command pake if else if else ds
-    */
-    exitRumahSakit(database_user);
+    // load urutan obat untuk penyakit (tunda dulu)
+    // MapObatPenyakit resep_obat;
+    // createMap(&resep_obat);
+    // bacaObatPenyakit(database_penyakit, daftar_obat, &resep_obat);
+
+    // load matriks ruangan
+    MatriksRuangan rumah_sakit;
+    createMatriksRuangan(&rumah_sakit);
+    bacaConfig(&rumah_sakit, &database_user, daftar_obat);
+
+    char command[32] = "";
+    while (strcasecmp(command, "EXIT") != 0) {
+        strcpy(command, "");
+        scanf("%d", command);
+        if (strcasecmp(command, "LOGIN") == 0) {
+            login(&current_user, database_user);
+        } else if (strcasecmp(command, "REGISTER") == 0) {
+            registerPasien(&daftar_username, &database_user);
+        } else if (strcasecmp(command, "LOGOUT") == 0) {
+            logout(&current_user);
+        } else if (strcasecmp(command, "LUPA_PASSWORD") == 0) {
+            lupaPassword(&database_user);
+        } else if (strcasecmp(command, "HELP") == 0) {
+            help(current_user, rumah_sakit);
+        } else if (strcasecmp(command, "LIHAT_DENAH") == 0) {
+            lihatDenah(current_user, rumah_sakit);
+        } else {
+            printf("Command invalid!\n");
+            printf("Masukkan \"HELP\" jika anda tidak tahu harus apa:)\n");
+        }
+    }
+    char opt = ' ';
+    do {
+        printf("Mau save perubahan? (Y/N)\n");
+        scanf("%c", &opt);
+    } while (opt != 'Y' && opt != 'N');
+    if (opt == 'Y') tulisConfig(rumah_sakit, database_user);
+    destroyUser(&current_user);
+    destroyListUser(&database_user);
+    // destroyMap(&resep_obat);
+    destroyMatriksRuangan(&rumah_sakit);
 }

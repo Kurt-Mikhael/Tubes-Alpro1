@@ -5,6 +5,7 @@
 
 #include "adt-obat.h"
 #include "adt-penyakit.h"
+#include "obat_penyakit.h"
 #include "adt-user.h"
 #include "adt-map.h"
 #include "adt-matrix.h"
@@ -12,21 +13,27 @@
 #include "adt-set.h"
 #include "adt-stack.h"
 
+#define MAX_FIELD_LEN 100
+#define MAX_LINE_LEN 1024
+
 /* Membaca file user.csv lalu memindahkannya ke ListUser database */
-void bacaUserCSV(ListUser* database);
+int bacaUserCSV(ListUser* database, ListPenyakit daftar_penyakit);
 
 /* Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit daftar_penyakit */
-void bacaPenyakitCSV(ListPenyakit* daftar_penyakit, const char* filename);
+void bacaPenyakitCSV(ListPenyakit* daftar_penyakit);
+
+/* Membaca obat.csv lalu memindahkannya ke daftar_obat*/
+void bacaObatCSV(ListObat* daftar_obat);
 
 /* Membaca ListPenyakit, memindahkannya ke MapObatPenyakit sebagai key
 Membaca obat_penyakit.csv dan obat.csv lalu memindahkannya ke MapObatPenyakit sebagai value (dalam bentuk Stack) */
-void bacaObatPenyakit(ListPenyakit daftar_penyakit, MapObatPenyakit* map);
+void bacaObatPenyakit(ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map);
 
 /* Membaca  line dan mengubahnya ke array*/
 void parseLineKeArray(const char* line, int* arr, int* len);
 
 /* Membaca config untuk membuat Rumah Sakit dengan ADT Matrix, load queue dalam matriks*/
-void bacaConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit map);
+void bacaConfig(MatriksRuangan* denah, ListUser* database, ListObat semuaObat);
 
 /* Menulis ulang config berdasarkan Matrix denah dan database user.*/
 void tulisConfig(MatriksRuangan denah, ListUser database);

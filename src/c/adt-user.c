@@ -54,13 +54,20 @@ int isUserValid(User account) {
 
 boolean isSameUser(User account1, User account2) {
     // 2 User dianggap sama jika id dan usernamenya sama
-    return (account1.id == account2.id && strcmp(account1.username, account2.username) == 0);
+    return (account1.id == account2.id && strcasecmp(account1.username, account2.username) == 0);
 }
 
 void createListUser(ListUser* accountList) {
     accountList->jumlah = 0;
     for (int i = 0; i < MAX_USER; i++) {
         createUser(&(accountList->data[i]));
+    }
+}
+
+void destroyListUser(ListUser* accountList) {
+    accountList->jumlah = 0;
+    for (int i = 0; i < MAX_USER; i++) {
+        destroyUser(&(accountList->data[i]));
     }
 }
 

@@ -47,13 +47,15 @@ typedef struct {
 //Mengisi list user dengan MARK
 void createListUser(ListUser* accountList); 
 
+void destroyListUser(ListUser* accountList);
+
 //Menghitung jumlah user dalam list
 int listLength(ListUser accountList); 
-
 
 //Mengambil user dari list berdasarkan index
 User getUser(ListUser accountList, int index); 
 
+User getUserByID(ListUser accountList, int id_user); 
 
 void insertUserLast(ListUser* accountList, User account);
 

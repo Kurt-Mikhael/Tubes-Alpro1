@@ -3,22 +3,29 @@
 
 #include "adt-user.h"
 
+
 typedef struct
 {
-    char user_name[50];
+    char user_name[MAX_USER][50];
+    int length;
 } UsernameSet;
 
+/* Membuat set of username kosong*/
+void createUsernameSet(UsernameSet* set_nama);
 
-/*Memeriksa apakah username kosong*/
-boolean isUsernameSetEmpty(UsernameSet u_s);
+/* Mendealokasi set of username*/
+void destroyUsernameSet(UsernameSet* set_nama);
 
-/*Memeriksa apakah username sudah terisi sebelumya*/
-boolean isUsernameSetValid(UsernameSet u_s);
+/* Memeriksa apakah username sudah ada dalam set*/
+boolean isUsernameInSet(UsernameSet set_nama, char nama[50]);
 
+/* Menambahkan username ke set jika belum ada di set*/
+void addUsernameToSet(UsernameSet* set_nama, char nama[50]);
 
-/*Menerima input username dan mengisi UsernameSet dengan username tersebut*/
-void createUsernameSet(UsernameSet* u_s);
+/* Menghapus username dari set*/
+void deleteUsernameFromSet(UsernameSet* set_nama, char nama[50]);
 
-
+/* Menyalin username-username dari list of user ke set of username*/
+void copyListToSet(ListUser database, UsernameSet* daftar_nama);
 
 #endif

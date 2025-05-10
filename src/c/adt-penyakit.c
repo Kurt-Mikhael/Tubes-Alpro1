@@ -4,8 +4,30 @@
 #include <stdlib.h>
 #include <string.h>
 
+void createPenyakit(Penyakit* p) {
+    p->id = 0;
+    strcpy(p->nama[50], "");
+    p->suhu_min = 0;
+    p->suhu_max = 0;
+    p->tekanan_sistolik_min = 0;
+    p->tekanan_sistolik_max = 0;
+    p->tekanan_diastolik_min = 0;
+    p->tekanan_diastolik_max = 0;
+    p->detak_jantung_min = 0;
+    p->detak_jantung_max = 0;
+    p->saturasi_oksigen_min = 0;
+    p->saturasi_oksigen_max = 0;
+}
+
+boolean isPenyakitValid(Penyakit p) {
+    return p.id != 0 && strcasecmp(p.nama, "") != 0;
+}
+
 
 void createListPenyakit(ListPenyakit* lp) {
+    for (int i = 0; i < MAX_PENYAKIT; i++) {
+        createPenyakit(&lp->data[i]);
+    }
     lp->jumlah = 0;
 }
 
@@ -45,3 +67,12 @@ Penyakit getPenyakit(ListPenyakit lp, int index) {
     }
 }
 
+Penyakit getPenyakitByName(ListPenyakit daftar_penyakit, char* nama) {
+    for (int i = 0; i < daftar_penyakit.jumlah; i++) {
+        if (strcasecmp(nama, daftar_penyakit.data[i].nama) == 0) {
+            return daftar_penyakit.data[i];
+        }
+    }
+    Penyakit p; createPenyakit(&p);
+    return p;
+}

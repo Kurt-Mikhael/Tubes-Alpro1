@@ -2,14 +2,17 @@
 #define ADTMAP_H
 
 #include "adt-penyakit.h"
+#include "adt-obat.h"
 #include "adt-stack.h"
 
 typedef struct
-{
-    /* data */
+{ // dummy
+    StackObat map[100];
 } MapObatPenyakit;
 
 void createMap(MapObatPenyakit* m_o_p);
+
+void destroyMap(MapObatPenyakit* m_o_p);
 
 void printMap();
 
