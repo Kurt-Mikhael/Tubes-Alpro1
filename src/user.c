@@ -1,3 +1,5 @@
+// NOTE: implementasi login dan register sudah di fungsi-prosedur.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -121,117 +123,118 @@ int username_exists(User users[], int user_count, const char *username) {
     }
     return 0; // Belum ada
 }
-void register_pasien(User users[], int *user_count, int max_users) {
-    if (*user_count >= max_users) {
-        printf("Maaf, kapasitas penuh! Tidak bisa menambah pasien baru.\n");
-        return;
-    }
 
-    char username[50], password[50];
+// void register_pasien(User users[], int *user_count, int max_users) {
+//     if (*user_count >= max_users) {
+//         printf("Maaf, kapasitas penuh! Tidak bisa menambah pasien baru.\n");
+//         return;
+//     }
 
-    printf(">>> REGISTER\n");
+//     char username[50], password[50];
 
-    while (1) { // Loop sampai registrasi berhasil
-        printf("Username: ");
-        if (fgets(username, sizeof(username), stdin) == NULL) return;
-        username[strcspn(username, "\n")] = '\0';
+//     printf(">>> REGISTER\n");
+
+//     while (1) { // Loop sampai registrasi berhasil
+//         printf("Username: ");
+//         if (fgets(username, sizeof(username), stdin) == NULL) return;
+//         username[strcspn(username, "\n")] = '\0';
     
-        // Validasi hanya huruf tanpa angka
-        int valid = 1;
-        for (int i = 0; i < strlen(username); i++) {
-            char c = username[i];
-            if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
-                valid = 0;
-                break;
-            }
-        }
-        if (!valid) {
-            printf("Registrasi gagal! Username hanya boleh berisi huruf (tanpa angka).\n");
-            continue; 
-        }
+//         // Validasi hanya huruf tanpa angka
+//         int valid = 1;
+//         for (int i = 0; i < strlen(username); i++) {
+//             char c = username[i];
+//             if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
+//                 valid = 0;
+//                 break;
+//             }
+//         }
+//         if (!valid) {
+//             printf("Registrasi gagal! Username hanya boleh berisi huruf (tanpa angka).\n");
+//             continue; 
+//         }
     
-        if (username_exists(users, *user_count, username)) {
-            printf("Registrasi gagal! Pasien dengan nama %s sudah terdaftar.\n", username);
-            continue; 
-        }
+//         if (username_exists(users, *user_count, username)) {
+//             printf("Registrasi gagal! Pasien dengan nama %s sudah terdaftar.\n", username);
+//             continue; 
+//         }
     
-        break; //keluar loop
-    }
+//         break; //keluar loop
+//     }
     
-    printf("Password: ");
-    if (fgets(password, sizeof(password), stdin) == NULL) return;
-    password[strcspn(password, "\n")] = '\0';
+//     printf("Password: ");
+//     if (fgets(password, sizeof(password), stdin) == NULL) return;
+//     password[strcspn(password, "\n")] = '\0';
 
-    User new_user;
-    new_user.id = (*user_count > 0) ? users[*user_count -1].id +1 :1;
-    strncpy(new_user.username, username, sizeof(new_user.username) -1);
-    new_user.username[sizeof(new_user.username) -1] = '\0';
-    strncpy(new_user.password, password, sizeof(new_user.password) -1);
-    new_user.password[sizeof(new_user.password) -1] = '\0';
-    strcpy(new_user.role, "pasien");
-    strcpy(new_user.riwayat_penyakit, "-");
-    new_user.suhu_tubuh = 0.0f;
-    new_user.tekanan_darah_sistolik = 0;
-    new_user.tekanan_darah_diastolik = 0;
-    new_user.detak_jantung = 0;
-    new_user.saturasi_oksigen = 0.0f;
-    new_user.kadar_gula_darah = 0;
-    new_user.berat_badan = 0.0f;
-    new_user.tinggi_badan = 0;
-    new_user.kadar_kolesterol = 0;
-    new_user.kadar_kolesterol_ldl = 0;
-    new_user.trombosit = 0;
+//     User new_user;
+//     new_user.id = (*user_count > 0) ? users[*user_count -1].id +1 :1;
+//     strncpy(new_user.username, username, sizeof(new_user.username) -1);
+//     new_user.username[sizeof(new_user.username) -1] = '\0';
+//     strncpy(new_user.password, password, sizeof(new_user.password) -1);
+//     new_user.password[sizeof(new_user.password) -1] = '\0';
+//     strcpy(new_user.role, "pasien");
+//     strcpy(new_user.riwayat_penyakit, "-");
+//     new_user.suhu_tubuh = 0.0f;
+//     new_user.tekanan_darah_sistolik = 0;
+//     new_user.tekanan_darah_diastolik = 0;
+//     new_user.detak_jantung = 0;
+//     new_user.saturasi_oksigen = 0.0f;
+//     new_user.kadar_gula_darah = 0;
+//     new_user.berat_badan = 0.0f;
+//     new_user.tinggi_badan = 0;
+//     new_user.kadar_kolesterol = 0;
+//     new_user.kadar_kolesterol_ldl = 0;
+//     new_user.trombosit = 0;
 
-    users[*user_count] = new_user;
-    (*user_count)++;
+//     users[*user_count] = new_user;
+//     (*user_count)++;
 
-    printf("Pasien %s berhasil ditambahkan!\n", username);
-}
+//     printf("Pasien %s berhasil ditambahkan!\n", username);
+// }
 
 
-void menu_login(User users[], int user_count) {
-    char username[50], password[50];
-    printf(">>> LOGIN\n");
+// void menu_login(User users[], int user_count) {
+//     char username[50], password[50];
+//     printf(">>> LOGIN\n");
 
-    // Hapus scanf yang tidak perlu
-    // int c;
-    // while ((c = getchar()) != '\n' && c != EOF);
+//     // Hapus scanf yang tidak perlu
+//     // int c;
+//     // while ((c = getchar()) != '\n' && c != EOF);
 
-    while (1) {
-        printf("Username: ");
-        if (fgets(username, sizeof(username), stdin) == NULL) break;
-        username[strcspn(username, "\n")] = '\0';
+//     while (1) {
+//         printf("Username: ");
+//         if (fgets(username, sizeof(username), stdin) == NULL) break;
+//         username[strcspn(username, "\n")] = '\0';
 
-        if (strlen(username) == 0) {
-            printf("Username tidak boleh kosong!\n");
-            continue;
-        }
+//         if (strlen(username) == 0) {
+//             printf("Username tidak boleh kosong!\n");
+//             continue;
+//         }
 
-        int found = -1;
-        for (int i = 0; i < user_count; i++) {
-            if (strcmp(username, users[i].username) == 0) {
-                found = i;
-                break;
-            }
-        }
+//         int found = -1;
+//         for (int i = 0; i < user_count; i++) {
+//             if (strcmp(username, users[i].username) == 0) {
+//                 found = i;
+//                 break;
+//             }
+//         }
 
-        if (found == -1) {
-            printf("User tidak ditemukan!\n");
-            continue;
-        }
+//         if (found == -1) {
+//             printf("User tidak ditemukan!\n");
+//             continue;
+//         }
 
-        printf("Password: ");
-        if (fgets(password, sizeof(password), stdin) == NULL) break;
-        password[strcspn(password, "\n")] = '\0';
+//         printf("Password: ");
+//         if (fgets(password, sizeof(password), stdin) == NULL) break;
+//         password[strcspn(password, "\n")] = '\0';
 
-        if (strcmp(password, users[found].password) == 0) {
-            printf("\nLogin berhasil!\n");
-            printf("Selamat datang, %s (Role: %s)\n",
-                   users[found].username,
-                   users[found].role);
-            break;
-        } else {
-            printf("Password salah!\n");
-        }
-    }
-}
+//         if (strcmp(password, users[found].password) == 0) {
+//             printf("\nLogin berhasil!\n");
+//             printf("Selamat datang, %s (Role: %s)\n",
+//                    users[found].username,
+//                    users[found].role);
+//             break;
+//         } else {
+//             printf("Password salah!\n");
+//         }
+//     }
+//}
