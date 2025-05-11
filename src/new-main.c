@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
         } else if (strcasecmp(command, "LUPA_PASSWORD") == 0) {
             lupaPassword(&database_user);
         } else if (strcasecmp(command, "HELP") == 0) {
-            help(current_user, rumah_sakit);
+            help(current_user);
         } else if (strcasecmp(command, "LIHAT_DENAH") == 0) {
             lihatDenah(current_user, rumah_sakit);
         } else if (strcasecmp(command, "LIHAT_RUANGAN") == 0) {

@@ -31,13 +31,13 @@ void logout(User* current_user);
 
 Mengubah password seorang user jika username ada dan kode unik sesuai ketentuan.*/
 int validasiKodeUnik(char* username, char *kodeUnik); //validasi kode unik apakah sesuai ketentuan
-void gantiPasswordDiList(char *baris, const char *passwordBaru, char *outputBaris); //memperbarui data password di ADT List
+void gantiPasswordDiList(User *user, const char *passwordBaru); //memperbarui data password di ADT List
 void lupaPassword(ListUser* database);
 
 /* Akses: Manager, Dokter, Pasien
 
 Menampilkan panduan prosedur yang tersedia untuk current_user.*/
-void help(User* current_user);
+void help(User current_user);
 
 /*Akses: Manajer
 

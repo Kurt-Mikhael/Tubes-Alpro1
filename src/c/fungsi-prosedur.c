@@ -319,17 +319,17 @@ void lupaPassword(ListUser* database){
 /* Akses: Manager, Dokter, Pasien
 
 Menampilkan panduan prosedur yang tersedia untuk current_user.*/
-void help(User* current_user){
+void help(User current_user){
     printf("\n================ HELP ====================\n");
     
-    if (current_user == NULL) {
+    if (!isUserValid(current_user)) {
         printf("\nKamu belum login sebagai role apapun. Silahkan login terlebih dahulu.\n\n");
         printf("1. LOGIN: Masuk ke dalam akun yang sudah terdaftar\n");
         printf("2. REGISTER: Membuat akun baru\n");
     } 
     else {
         char role_lower[20];
-        strncpy(role_lower, current_user->role, sizeof(role_lower));
+        strncpy(role_lower, current_user.role, sizeof(role_lower));
         for (int i = 0; role_lower[i]; i++) {
             if (role_lower[i] >= 'A' && role_lower[i] <= 'Z') {
                 role_lower[i] = role_lower[i] + ('a' - 'A');
@@ -338,7 +338,7 @@ void help(User* current_user){
 
         if (strstr(role_lower, "dokter") != NULL) {
             printf("\nHalo, Dokter %s! Kamu memanggil command HELP. Kamu pasti sedang kebingungan.\n", 
-                  current_user->username);
+                  current_user.username);
             printf("Berikut adalah hal-hal yang dapat kamu lakukan sekarang:\n\n");
             printf("1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("2. LUPA_PASSWORD: Mengganti password\n");
@@ -349,7 +349,7 @@ void help(User* current_user){
         }
         else if (strstr(role_lower, "pasien") != NULL) {
             printf("\nSelamat datang, %s. Kamu memanggil command HELP. Kamu pasti sedang kebingungan.\n", 
-                current_user->username);
+                current_user.username);
             printf("Berikut adalah hal-hal yang dapat kamu lakukan sekarang:\n\n");
             printf("1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("2. LUPA_PASSWORD: Mengganti password\n");
@@ -363,7 +363,7 @@ void help(User* current_user){
         }
         else if (strstr(role_lower, "manager") != NULL) {
             printf("\nHalo Manager %s. Kenapa kamu memanggil command HELP? Kan kamu manager, tapi yasudahlah kamu pasti sedang kebingungan.\n", 
-                  current_user->username);
+                  current_user.username);
             printf("Berikut adalah hal-hal yang dapat kamu lakukan sekarang:\n\n");
             printf("1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
             printf("2. LUPA_PASSWORD: Mengganti password\n");
