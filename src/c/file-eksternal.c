@@ -1,6 +1,19 @@
 #include "..\header\file-eksternal.h"
 #include <stdio.h>
 
+int folderExists(const char *folderName) {
+    char path[256];
+    FILE *fp;
+
+    snprintf(path, sizeof(path), "%s/config.txt", folderName);
+    fp = fopen(path, "r");
+    if (fp != NULL) {
+        fclose(fp);
+        return 1;
+    }
+    return 0;
+}
+
 /*Mengisi Inventory PAsien dengan obatnya
 I.S : ListUser database, userId, inventory sudah terisi
 F.S : inventory pasien terisi dengan obat yang ada di database*/
@@ -50,8 +63,10 @@ int parse_field(FILE* file, char* buffer, int max_len) {
     return c;
 }
 
-int bacaUserCSV(ListUser* database, ListPenyakit daftar_penyakit) {
-    FILE *file = fopen("user.csv", "r");
+int bacaUserCSV(char *folderName, ListUser* database, ListPenyakit daftar_penyakit) {
+    char path[256];
+    snprintf(path, sizeof(path), "%s/data/user.csv", folderName);
+    FILE *file = fopen(path, "r");
     if (!file) {
         printf("Error: File tidak ditemukan!\n");
         return 0;
@@ -138,8 +153,10 @@ Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit lp
 I.S : ListPenyakit lp sudah terisi
 F.S : ListPenyakit lp terisi dengan data dari file penyakit.csv
 */
-void bacaPenyakitCSV(ListPenyakit* lp) {
-    FILE* file = fopen("penyakit.csv", "r");
+void bacaPenyakitCSV(char *folderName, ListPenyakit* lp) {
+    char path[256];
+    snprintf(path, sizeof(path), "%s/data/penyakit.csv", folderName);
+    FILE* file = fopen(path, "r");
     if (file == NULL) {
         printf("Error: File \"penyakit.csv\" tidak ditemukan!\n");
         return;
@@ -186,9 +203,10 @@ void bacaPenyakitCSV(ListPenyakit* lp) {
     fclose(file);
 }
 
-void bacaObatCSV(ListObat* daftar_obat) {
-    // Mulai parsing obat.csv
-    FILE *file_obat = fopen("obat.csv", "r");
+void bacaObatCSV(char *folderName, ListObat* daftar_obat) {
+    char path[256];
+    snprintf(path, sizeof(path), "%s/data/obat.csv", folderName);
+    FILE *file_obat = fopen(path, "r");
     if (file_obat == NULL) {
         printf("Error: File \"obat.csv\" tidak ditemukan!\n");
         return;
@@ -231,7 +249,7 @@ void bacaObatCSV(ListObat* daftar_obat) {
 }
 
 
-void bacaObatPenyakit(ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map){
+void bacaObatPenyakit(char *folderName, ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map){
 
     // array yang menyatakan urutan obat tiap penyakit
     int urutan_obat[lengthPenyakit(daftar_penyakit)][MAX_OBAT];
@@ -244,7 +262,9 @@ void bacaObatPenyakit(ListPenyakit daftar_penyakit, ListObat daftar_obat, MapOba
     }
 
     // Mulai parsing obat_penyakit.csv
-    FILE* file = fopen("obat_penyakit.csv", "r");
+    char path[256];
+    snprintf(path, sizeof(path), "%s/data/obat_penyakit.csv", folderName);
+    FILE* file = fopen(path, "r");
     if(!file){
         printf("Error: File \"obat_penyakit.csv\" tidak ditemukan!\n");
         return;
@@ -319,8 +339,10 @@ Membaca file config.txt lalu memindahkan datanya ke variabel-variabel yang sesua
 I.S : MatriksRuangan denah tidak terdefinisi, ListUser database dan semuaObat terisi dari file CSV
 F.S : MatriksRuangan denah terisi, Queue dan inventory terisi dengan data dari file config.txt
 */
-void bacaConfig(MatriksRuangan* denah, ListUser* database, ListObat semuaObat) {
-    FILE* file = fopen("config.txt", "r");
+void bacaConfig(char *folderName, MatriksRuangan* denah, ListUser* database, ListObat semuaObat) {
+    char path[256];
+    snprintf(path, sizeof(path), "%s/data/config.txt", folderName);
+    FILE* file = fopen(path, "r");
     if (!file) return;
 
     char line[256];
@@ -369,8 +391,10 @@ void bacaConfig(MatriksRuangan* denah, ListUser* database, ListObat semuaObat) {
     fclose(file);
 }
 
-void saveConfig(MatriksRuangan* denah, ListUser* database, MapObatPenyakit map) {
-    FILE* file = fopen("config.txt", "w");
+void saveConfig(char *folderName, MatriksRuangan* denah, ListUser* database) {
+    char path[256];
+    snprintf(path, sizeof(path), "%s/data/config.txt", folderName);
+    FILE* file = fopen(path, "w");
     if (!file) {
         printf("Gagal membuka config.txt\n");
         return;
