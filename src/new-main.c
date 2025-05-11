@@ -77,6 +77,8 @@ int main(int argc, char *argv[]) {
             help(current_user, rumah_sakit);
         } else if (strcasecmp(command, "LIHAT_DENAH") == 0) {
             lihatDenah(current_user, rumah_sakit);
+        } else if (strcasecmp(command, "LIHAT_RUANGAN") == 0) {
+            lihatRuangan(current_user, rumah_sakit);
         } else {
             printf("Command invalid!\n");
             printf("Masukkan \"HELP\" jika anda tidak tahu harus apa:)\n");

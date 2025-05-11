@@ -47,7 +47,7 @@ void lihatDenah(User current_user, MatriksRuangan denah);
 /*Akses: Manajer, Dokter, Pasien
 
 Menampilkan informasi kapasitas, nama dokter, daftar pasien dalam ruangan, dan antrean pasien suatu ruangan berdasarkan kodenya.*/
-void lihatRuangan(User current_user, MatriksRuangan denah, char* kode_ruangan);
+void lihatRuangan(User current_user, MatriksRuangan denah);
 
 /*Akses: Manajer
 
