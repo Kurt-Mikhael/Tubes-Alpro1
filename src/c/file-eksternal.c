@@ -15,7 +15,7 @@ int folderExists(const char *folderName) {
     char path[256];
     FILE *fp;
 
-    snprintf(path, sizeof(path), "%s/config.txt", folderName);
+    snprintf(path, sizeof(path), "%s/src/file/config.txt", folderName);
     fp = fopen(path, "r");
     if (fp != NULL) {
         fclose(fp);
@@ -75,7 +75,7 @@ int parse_field(FILE* file, char* buffer, int max_len) {
 
 int bacaUserCSV(const char *folderName, ListUser* database, ListPenyakit daftar_penyakit) {
     char path[256];
-    snprintf(path, sizeof(path), "%s/data/user.csv", folderName);
+    snprintf(path, sizeof(path), "%s/src/file/user.csv", folderName);
     FILE *file = fopen(path, "r");
     if (!file) {
         printf("Error: File tidak ditemukan!\n");
@@ -165,7 +165,7 @@ F.S : ListPenyakit lp terisi dengan data dari file penyakit.csv
 */
 void bacaPenyakitCSV(const char *folderName, ListPenyakit* lp) {
     char path[256];
-    snprintf(path, sizeof(path), "%s/data/penyakit.csv", folderName);
+    snprintf(path, sizeof(path), "%s/src/file/penyakit.csv", folderName);
     FILE* file = fopen(path, "r");
     if (file == NULL) {
         printf("Error: File \"penyakit.csv\" tidak ditemukan!\n");
@@ -215,7 +215,7 @@ void bacaPenyakitCSV(const char *folderName, ListPenyakit* lp) {
 
 void bacaObatCSV(const char *folderName, ListObat* daftar_obat) {
     char path[256];
-    snprintf(path, sizeof(path), "%s/data/obat.csv", folderName);
+    snprintf(path, sizeof(path), "%s/src/file/obat.csv", folderName);
     FILE *file_obat = fopen(path, "r");
     if (file_obat == NULL) {
         printf("Error: File \"obat.csv\" tidak ditemukan!\n");
@@ -273,7 +273,7 @@ void bacaObatPenyakit(const char *folderName, ListPenyakit daftar_penyakit, List
 
     // Mulai parsing obat_penyakit.csv
     char path[256];
-    snprintf(path, sizeof(path), "%s/data/obat_penyakit.csv", folderName);
+    snprintf(path, sizeof(path), "%s/src/file/obat_penyakit.csv", folderName);
     FILE* file = fopen(path, "r");
     if(!file){
         printf("Error: File \"obat_penyakit.csv\" tidak ditemukan!\n");
@@ -351,7 +351,7 @@ F.S : MatriksRuangan denah terisi, Queue dan inventory terisi dengan data dari f
 */
 void bacaConfig(const char *folderName, MatriksRuangan* denah, ListUser* database, ListObat semuaObat) {
     char path[256];
-    snprintf(path, sizeof(path), "%s/data/config.txt", folderName);
+    snprintf(path, sizeof(path), "%s/src/file/config.txt", folderName);
     FILE* file = fopen(path, "r");
     if (!file) return;
 
@@ -410,7 +410,7 @@ void bacaConfig(const char *folderName, MatriksRuangan* denah, ListUser* databas
 
 void saveConfig(const char *folderName, MatriksRuangan* denah, ListUser* database) {
     char path[256];
-    snprintf(path, sizeof(path), "%s/data/config.txt", folderName);
+    snprintf(path, sizeof(path), "%s/src/file/config.txt", folderName);
     FILE* file = fopen(path, "w");
     if (!file) {
         printf("Gagal membuka config.txt\n");

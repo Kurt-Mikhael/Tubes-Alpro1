@@ -36,14 +36,11 @@ void parseLineKeArray(const char* line, int* arr, int* len);
 /* Membaca config untuk membuat Rumah Sakit dengan ADT Matrix, load queue dalam matriks*/
 void bacaConfig(const char *folderName, MatriksRuangan* denah, ListUser* database, ListObat semuaObat);
 
-/* Menulis ulang config berdasarkan Matrix denah dan database user.*/
-void tulisConfig(const char *folderName, MatriksRuangan denah, ListUser database);
-
 /*Mengisi Inventory PAsien dengan obatnya
 I.S : ListUser database, userId, inventory sudah terisi
 F.S : inventory pasien terisi dengan obat yang ada di database*/
 void TambahObatKePasien(ListUser *database, int pasienId, int obatId, ListObat semuaObat);
 
-//Mengupdate config.txt
+/* Menulis ulang config berdasarkan Matrix denah dan database user.*/
 void saveConfig(const char *folderName, MatriksRuangan* denah, ListUser* database);
 #endif
