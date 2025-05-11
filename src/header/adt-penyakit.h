@@ -34,11 +34,17 @@ typedef struct
 
 void createListPenyakit(ListPenyakit* database_penyakit);
 
-void destroyListPenyakit(ListPenyakit* database_penyakit);
+int lengthPenyakit(ListPenyakit database_penyakit);
 
-int lengthPenyakit(ListPenyakit daftar_penyakit);
+int isEmpty(ListPenyakit lp);
 
-Penyakit getPenyakitByID(ListPenyakit l, int id);
+int isFull(ListPenyakit lp);
+
+void insertLast(ListPenyakit* lp, Penyakit p);
+
+void deleteLast(ListPenyakit* lp, Penyakit* p);
+
+Penyakit getPenyakit(ListPenyakit lp, int index);
 
 Penyakit getPenyakitByName(ListPenyakit daftar_penyakit, char* nama);
 

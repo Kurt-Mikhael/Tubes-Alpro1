@@ -6,7 +6,7 @@
 
 void createPenyakit(Penyakit* p) {
     p->id = 0;
-    strcpy(p->nama[50], "");
+    strcpy(p->nama, "");
     p->suhu_min = 0;
     p->suhu_max = 0;
     p->tekanan_sistolik_min = 0;
@@ -30,6 +30,11 @@ void createListPenyakit(ListPenyakit* lp) {
     }
     lp->jumlah = 0;
 }
+
+int lengthPenyakit(ListPenyakit database_penyakit) {
+    return database_penyakit.jumlah;
+}
+
 
 int isEmpty(ListPenyakit lp) {
     return lp.jumlah == 0;

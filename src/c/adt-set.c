@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "boolean.h"
+#include "..\header\boolean.h"
 
 /* Membuat set of username kosong*/
 void createUsernameSet(UsernameSet* set_nama) {

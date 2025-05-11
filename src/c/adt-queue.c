@@ -25,13 +25,13 @@ void destroyQueue(Queue* antrean) {
 }
 
 /* Jika tidak ada antrean, mengembalikan true, else false*/
-boolean isEmpty(Queue antrean) {
+boolean isQueueEmpty(Queue antrean) {
     if (!isUserValid(antrean.pasien) && antrean.next == NULL) return 1;
     else return 0;
 }
 
 int queueLength(Queue antrean) {
-    if (isEmpty(antrean)) return 0;
+    if (isQueueEmpty(antrean)) return 0;
     else {
         int length = 1;
         while (antrean.next != NULL) {
@@ -44,7 +44,7 @@ int queueLength(Queue antrean) {
 
 /* Menambah elemen ke dalam antrean (paling belakang) */
 void enqueue(Queue *antrean, User pasien) {
-    if (isEmpty(*antrean)) antrean->pasien = pasien;
+    if (isQueueEmpty(*antrean)) antrean->pasien = pasien;
     else {
         Address newNode = (Address) malloc(sizeof(Queue));
         newNode->next = NULL;
@@ -60,7 +60,7 @@ void enqueue(Queue *antrean, User pasien) {
 /* Mengembalikan elemen paling depan */
 User dequeue(Queue **antrean) {
     User val;
-    if (isEmpty(**antrean)) {
+    if (isQueueEmpty(**antrean)) {
         createUser(&val);
     } else if ((**antrean).next == NULL) {
         val = (**antrean).pasien;
@@ -76,7 +76,7 @@ User dequeue(Queue **antrean) {
 }
 
 int findInQueue(Queue antrean, User pasien) {
-    if (isEmpty(antrean)) return -1;
+    if (isQueueEmpty(antrean)) return -1;
     else {
         int index = 0;
         while (!isSameUser(antrean.pasien, pasien) && antrean.next != NULL) {

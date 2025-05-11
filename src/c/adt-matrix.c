@@ -24,7 +24,7 @@ void printInfoRuangan(MatriksRuangan denah, int baris, int kolom){
     } else printf("Dokter\t: -\n");
     printf("Pasien di dalam ruangan:\n");
     Queue* antrean = denah.ruang[baris][kolom].antrean;
-    if (isEmpty(*antrean)) {
+    if (isQueueEmpty(*antrean)) {
         printf("Tidak ada pasien di dalam ruangan saat ini.\n");
     } else {
         for (int i = 1; i <= queueLength(*antrean); i++) {

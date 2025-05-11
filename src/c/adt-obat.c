@@ -56,7 +56,6 @@ int lengthListObat(ListObat list_obat){
 }
 
 Obat getObatByID(ListObat list_obat, int id){
-    Obat obat_kosong;
     boolean obat_found = FALSE;
     for(int i=0;i<lengthListObat(list_obat);i++){
         if(list_obat.data[i].obat_id == id){
@@ -65,7 +64,8 @@ Obat getObatByID(ListObat list_obat, int id){
         }
     }
     if(!obat_found){
-        createListObat(&obat_kosong);
+        Obat obat_kosong;
+        createObat(&obat_kosong);
         return obat_kosong;
     }
 }
