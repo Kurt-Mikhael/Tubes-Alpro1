@@ -5,7 +5,6 @@
 
 #include "adt-obat.h"
 #include "adt-penyakit.h"
-#include "obat_penyakit.h"
 #include "adt-user.h"
 #include "adt-map.h"
 #include "adt-matrix.h"
@@ -41,7 +40,7 @@ void tulisConfig(MatriksRuangan denah, ListUser database);
 /*Mengisi Inventory PAsien dengan obatnya
 I.S : ListUser database, userId, inventory sudah terisi
 F.S : inventory pasien terisi dengan obat yang ada di database*/
-void TambahObatKePasien(ListUser *database, int pasienId, int obatId, ListObat *semuaObat);
+void TambahObatKePasien(ListUser *database, int pasienId, int obatId, ListObat semuaObat);
 
 
 //Mengupdate config.txt
