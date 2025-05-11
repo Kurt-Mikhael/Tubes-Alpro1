@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "..\header\adt-obat.h"
 #include "..\header\adt-penyakit.h"
 #include "..\header\adt-user.h"
@@ -219,7 +220,7 @@ void registerPasien(UsernameSet *username_set, ListUser *database) {
 
 Mengubah current_user menjadi NO_USER.*/
 void logout(User* current_user){
-    createUser(&current_user);
+    createUser(current_user);
 }
 
 /*Akses: Sebelum Login
@@ -330,7 +331,9 @@ void help(User* current_user){
         char role_lower[20];
         strncpy(role_lower, current_user->role, sizeof(role_lower));
         for (int i = 0; role_lower[i]; i++) {
-            role_lower[i] = tolower(role_lower[i]);
+            if (role_lower[i] >= 'A' && role_lower[i] <= 'Z') {
+                role_lower[i] = role_lower[i] + ('a' - 'A');
+            }
         }
 
         if (strstr(role_lower, "dokter") != NULL) {
@@ -338,7 +341,7 @@ void help(User* current_user){
                   current_user->username);
             printf("Berikut adalah hal-hal yang dapat kamu lakukan sekarang:\n\n");
             printf("1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
-            printf("2. LUPA_PASSWORD: Mengganti password");
+            printf("2. LUPA_PASSWORD: Mengganti password\n");
             printf("3. LIHAT_DENAH: Melihat denah rumah sakit\n");
             printf("4. DIAGNOSIS: Melakukan diagnosis penyakit pasien berdasarkan kondisi tubuh pasien\n");
             printf("5. NGOBATIN: Memberi obat kepada pasien\n");
@@ -349,7 +352,7 @@ void help(User* current_user){
                 current_user->username);
             printf("Berikut adalah hal-hal yang dapat kamu lakukan sekarang:\n\n");
             printf("1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
-            printf("2. LUPA_PASSWORD: Mengganti password");
+            printf("2. LUPA_PASSWORD: Mengganti password\n");
             printf("3. LIHAT_DENAH: Melihat denah rumah sakit\n");
             printf("4. BOLEH_PULANG: Berkonsultasi dengan Dokter terkait status kepulangan\n");
             printf("5. DAFTAR_CHECKUP: Mendaftarkan diri untuk pemeriksaan dokter\n");
@@ -363,7 +366,7 @@ void help(User* current_user){
                   current_user->username);
             printf("Berikut adalah hal-hal yang dapat kamu lakukan sekarang:\n\n");
             printf("1. LOGOUT: Keluar dari akun yang sedang digunakan\n");
-            printf("2. LUPA_PASSWORD: Mengganti password");
+            printf("2. LUPA_PASSWORD: Mengganti password\n");
             printf("3. LIHAT_DENAH: Melihat denah rumah sakit\n");
             printf("4. LIHAT_USER: Melihat data seluruh pengguna\n");
             printf("5. CARI_USER: Mencari data pengguna\n");
