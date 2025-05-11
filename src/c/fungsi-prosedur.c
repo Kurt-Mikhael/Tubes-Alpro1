@@ -219,7 +219,7 @@ void registerPasien(UsernameSet *username_set, ListUser *database) {
 
 Mengubah current_user menjadi NO_USER.*/
 void logout(User* current_user){
-
+    createUser(&current_user);
 }
 
 /*Akses: Sebelum Login
