@@ -1,5 +1,15 @@
-#include "..\header\file-eksternal.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "..\header\adt-obat.h"
+#include "..\header\adt-penyakit.h"
+#include "..\header\adt-user.h"
+#include "..\header\adt-map.h"
+#include "..\header\adt-matrix.h"
+#include "..\header\adt-queue.h"
+#include "..\header\adt-set.h"
+#include "..\header\adt-stack.h"
+#include "..\header\file-eksternal.h"
 
 int folderExists(const char *folderName) {
     char path[256];
@@ -63,7 +73,7 @@ int parse_field(FILE* file, char* buffer, int max_len) {
     return c;
 }
 
-int bacaUserCSV(char *folderName, ListUser* database, ListPenyakit daftar_penyakit) {
+int bacaUserCSV(const char *folderName, ListUser* database, ListPenyakit daftar_penyakit) {
     char path[256];
     snprintf(path, sizeof(path), "%s/data/user.csv", folderName);
     FILE *file = fopen(path, "r");
@@ -153,7 +163,7 @@ Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit lp
 I.S : ListPenyakit lp sudah terisi
 F.S : ListPenyakit lp terisi dengan data dari file penyakit.csv
 */
-void bacaPenyakitCSV(char *folderName, ListPenyakit* lp) {
+void bacaPenyakitCSV(const char *folderName, ListPenyakit* lp) {
     char path[256];
     snprintf(path, sizeof(path), "%s/data/penyakit.csv", folderName);
     FILE* file = fopen(path, "r");
@@ -203,7 +213,7 @@ void bacaPenyakitCSV(char *folderName, ListPenyakit* lp) {
     fclose(file);
 }
 
-void bacaObatCSV(char *folderName, ListObat* daftar_obat) {
+void bacaObatCSV(const char *folderName, ListObat* daftar_obat) {
     char path[256];
     snprintf(path, sizeof(path), "%s/data/obat.csv", folderName);
     FILE *file_obat = fopen(path, "r");
@@ -249,7 +259,7 @@ void bacaObatCSV(char *folderName, ListObat* daftar_obat) {
 }
 
 
-void bacaObatPenyakit(char *folderName, ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map){
+void bacaObatPenyakit(const char *folderName, ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map){
 
     // array yang menyatakan urutan obat tiap penyakit
     int urutan_obat[lengthPenyakit(daftar_penyakit)][MAX_OBAT];
@@ -339,7 +349,7 @@ Membaca file config.txt lalu memindahkan datanya ke variabel-variabel yang sesua
 I.S : MatriksRuangan denah tidak terdefinisi, ListUser database dan semuaObat terisi dari file CSV
 F.S : MatriksRuangan denah terisi, Queue dan inventory terisi dengan data dari file config.txt
 */
-void bacaConfig(char *folderName, MatriksRuangan* denah, ListUser* database, ListObat semuaObat) {
+void bacaConfig(const char *folderName, MatriksRuangan* denah, ListUser* database, ListObat semuaObat) {
     char path[256];
     snprintf(path, sizeof(path), "%s/data/config.txt", folderName);
     FILE* file = fopen(path, "r");
@@ -361,7 +371,14 @@ void bacaConfig(char *folderName, MatriksRuangan* denah, ListUser* database, Lis
     int kapasitas = temp[0];
 
     // Inisialisasi matriks ruangan
-    createMatrixRuangan(denah, baris, kolom, kapasitas);
+    denah->row = baris;
+    denah->column = kolom;
+    for (int i = 0; i < baris; i++) {
+        for (int j = 0; j < kolom; j++) {
+            denah->ruang[i][j].kapasitas = kapasitas;
+        }
+    }
+    // createMatrixRuangan(denah, baris, kolom, kapasitas);
 
     // Baris 3 - (3+totalRuangan-1): Data dokter dan pasien tiap ruangan
     for (int i = 0; i < totalRuangan; i++) {
@@ -391,7 +408,7 @@ void bacaConfig(char *folderName, MatriksRuangan* denah, ListUser* database, Lis
     fclose(file);
 }
 
-void saveConfig(char *folderName, MatriksRuangan* denah, ListUser* database) {
+void saveConfig(const char *folderName, MatriksRuangan* denah, ListUser* database) {
     char path[256];
     snprintf(path, sizeof(path), "%s/data/config.txt", folderName);
     FILE* file = fopen(path, "w");

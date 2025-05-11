@@ -17,7 +17,7 @@ Queue* createQueue();
 void destroyQueue(Queue* antrean);
 
 /* Jika tidak ada antrean, mengembalikan true, else false*/
-boolean isEmpty(Queue antrean);
+boolean isQueueEmpty(Queue antrean);
 
 int queueLength(Queue antrean);
 

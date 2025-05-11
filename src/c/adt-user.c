@@ -1,8 +1,5 @@
 #include "..\header\adt-user.h"
 #include <stdio.h>
-
-
-#include "adt-user.h"
 #include <string.h>
 #define MARK_ID -1
 void createUser(User* account) {
@@ -21,8 +18,8 @@ void createUser(User* account) {
     account->kadar_kolesterol = 0;
     account->kadar_kolesterol_ldl = 0;
     account->trombosit = 0;
-    CreateListObat(&(account->inventory));
-    CreateStackObat(&(account->perut));
+    createListObat(&(account->inventory));
+    createStackObat(&(account->perut));
     createPenyakit(&(account->riwayat_penyakit));
 }
 

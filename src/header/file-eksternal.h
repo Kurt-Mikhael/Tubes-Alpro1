@@ -18,26 +18,26 @@
 int folderExists(const char *folderName);
 
 /* Membaca file user.csv lalu memindahkannya ke ListUser database */
-int bacaUserCSV(char *folderName, ListUser* database, ListPenyakit daftar_penyakit);
+int bacaUserCSV(const char *folderName, ListUser* database, ListPenyakit daftar_penyakit);
 
 /* Membaca file penyakit.csv lalu memindahkannya ke ListPenyakit daftar_penyakit */
-void bacaPenyakitCSV(char *folderName, ListPenyakit* daftar_penyakit);
+void bacaPenyakitCSV(const char *folderName, ListPenyakit* daftar_penyakit);
 
 /* Membaca obat.csv lalu memindahkannya ke daftar_obat*/
-void bacaObatCSV(char *folderName, ListObat* daftar_obat);
+void bacaObatCSV(const char *folderName, ListObat* daftar_obat);
 
 /* Membaca ListPenyakit, memindahkannya ke MapObatPenyakit sebagai key
 Membaca obat_penyakit.csv dan obat.csv lalu memindahkannya ke MapObatPenyakit sebagai value (dalam bentuk Stack) */
-void bacaObatPenyakit(char *folderName, ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map);
+void bacaObatPenyakit(const char *folderName, ListPenyakit daftar_penyakit, ListObat daftar_obat, MapObatPenyakit* map);
 
 /* Membaca  line dan mengubahnya ke array*/
 void parseLineKeArray(const char* line, int* arr, int* len);
 
 /* Membaca config untuk membuat Rumah Sakit dengan ADT Matrix, load queue dalam matriks*/
-void bacaConfig(char *folderName, MatriksRuangan* denah, ListUser* database, ListObat semuaObat);
+void bacaConfig(const char *folderName, MatriksRuangan* denah, ListUser* database, ListObat semuaObat);
 
 /* Menulis ulang config berdasarkan Matrix denah dan database user.*/
-void tulisConfig(char *folderName, MatriksRuangan denah, ListUser database);
+void tulisConfig(const char *folderName, MatriksRuangan denah, ListUser database);
 
 /*Mengisi Inventory PAsien dengan obatnya
 I.S : ListUser database, userId, inventory sudah terisi
@@ -45,5 +45,5 @@ F.S : inventory pasien terisi dengan obat yang ada di database*/
 void TambahObatKePasien(ListUser *database, int pasienId, int obatId, ListObat semuaObat);
 
 //Mengupdate config.txt
-void saveConfig(char *folderName, MatriksRuangan* denah, ListUser* database);
+void saveConfig(const char *folderName, MatriksRuangan* denah, ListUser* database);
 #endif
