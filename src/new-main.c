@@ -34,17 +34,17 @@ int main(int argc, char *argv[]) {
     // load data penyakit dari csv
     ListPenyakit database_penyakit;
     createListPenyakit(&database_penyakit); // done
-    bacaPenyakitCSV(&database_penyakit); // done
+    bacaPenyakitCSV(folderName, &database_penyakit); // done
 
     // load data obat dari csv
     ListObat daftar_obat;
     createListObat(&daftar_obat); // done
-    bacaObatCSV(&daftar_obat); // done
+    bacaObatCSV(folderName, &daftar_obat); // done
 
     // load data akun dari csv
     ListUser database_user;
     createListUser(&database_user); // done
-    bacaUserCSV(&database_user, database_penyakit); // done
+    bacaUserCSV(folderName, &database_user, database_penyakit); // done
     
     // copy semua username di database ke set
     UsernameSet daftar_username;
@@ -54,12 +54,12 @@ int main(int argc, char *argv[]) {
     // load urutan obat untuk penyakit (tunda dulu)
     // MapObatPenyakit resep_obat;
     // createMap(&resep_obat);
-    // bacaObatPenyakit(database_penyakit, daftar_obat, &resep_obat);
+    // bacaObatPenyakit(folderName, database_penyakit, daftar_obat, &resep_obat);
 
     // load matriks ruangan
     MatriksRuangan rumah_sakit;
     createMatriksRuangan(&rumah_sakit);
-    bacaConfig(&rumah_sakit, &database_user, daftar_obat);
+    bacaConfig(folderName, &rumah_sakit, &database_user, daftar_obat);
 
     char command[32] = "";
     while (strcasecmp(command, "EXIT") != 0) {
@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
         printf("Mau save perubahan? (Y/N)\n");
         scanf("%c", &opt);
     } while (opt != 'Y' && opt != 'N');
-    if (opt == 'Y') tulisConfig(rumah_sakit, database_user);
+    if (opt == 'Y') saveConfig(folderName, &rumah_sakit, &database_user);
     destroyUser(&current_user);
     destroyListUser(&database_user);
     // destroyMap(&resep_obat);
