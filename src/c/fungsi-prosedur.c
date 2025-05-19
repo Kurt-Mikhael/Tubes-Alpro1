@@ -410,6 +410,7 @@ void lihatDenah(User current_user, MatriksRuangan denah) {
 
 void lihatAntrean(User current_user, MatriksRuangan denah) {
     
+    // Validasi user manajer
     if (!isUserValid(current_user)) {
         printf("Login untuk melihat seluruh antrean!\n");
         return;
@@ -426,4 +427,89 @@ void lihatAntrean(User current_user, MatriksRuangan denah) {
             }
         }
     }
+}
+
+void tambahDokter(User current_user, UsernameSet* username, ListUser* database) {
+
+    // Validasi user manajer
+    if (!isUserValid(current_user)) {
+        printf("Login untuk melihat seluruh antrean!\n");
+        return;
+    } else if (strcasecmp(current_user.role, "manajer") != 0) {
+        printf("Kamu bukan manajer rumah sakit, lamar kerja jadi manajer dulu ya...\n");
+        return;
+    }
+
+    printf(">>> TAMBAH DOKTER\n");
+    // Input dan validasi username
+    int i, valid;
+    char nama[50];
+    char temp_username[50];
+    do {
+        valid = 1; // Flag validasi
+        
+        printf("Username: ");
+        if (fgets(nama, sizeof(nama), stdin) == NULL) {
+            printf("Error membaca input username\n");
+            return;
+        }
+        nama[strcspn(nama, "\n")] = '\0'; // Hapus newline
+        
+        // Validasi 1: Hanya mengandung huruf (a-z, A-Z)
+        for (i = 0; nama[i] != '\0'; i++) {
+            if (!((nama[i] >= 'a' && nama[i] <= 'z') || 
+                  (nama[i] >= 'A' && nama[i] <= 'Z'))) {
+                printf("Penambahan dokter gagal! Username hanya boleh berisi huruf (tanpa angka atau simbol).\n");
+                valid = 0;
+                break;
+            }
+        }
+        if (!valid) continue;
+        
+        // Validasi 2: Username unik (case-insensitive) - Binary Search
+        // Buat versi lowercase untuk perbandingan
+        strcpy(temp_username, nama);
+        for (i = 0; temp_username[i]; i++) {
+            if (temp_username[i] >= 'A' && temp_username[i] <= 'Z') {
+                temp_username[i] += 32; // Ke lowercase
+            }
+        }
+        
+        if (isUsernameInSet(*username, nama)) valid = 0;
+        
+        if (!valid) {
+            printf("Penambahan dokter gagal! Dokter dengan nama %s sudah terdaftar.\n", username);
+            continue;
+        }
+    } while (!valid);
+
+    // Input password
+    char password[50];
+    printf("Password: ");
+    if (fgets(password, sizeof(password), stdin) == NULL) {
+        printf("Error membaca input password\n");
+        return;
+    }
+    password[strcspn(password, "\n")] = '\0'; // Hapus newline
+    
+    // Buat User
+    User dokter_baru;
+    createUser(&dokter_baru);
+
+    if (database->jumlah > 0) {
+        dokter_baru.id = database->data[database->jumlah-1].id + 1;
+    } else {
+        dokter_baru.id = 1; // ID pertama
+    }
+
+    strncpy(dokter_baru.username, nama, sizeof(dokter_baru.username) - 1);
+    dokter_baru.username[sizeof(dokter_baru.username) - 1] = '\0';
+    
+    strncpy(dokter_baru.password, password, sizeof(dokter_baru.password) - 1);
+    dokter_baru.password[sizeof(dokter_baru.password) - 1] = '\0';
+    
+    strcpy(dokter_baru.role, "dokter");
+    insertUserLast(database, dokter_baru);
+    addUsernameToSet(username, dokter_baru.username);
+    printf("Dokter %s berhasil ditambahkan dengan ID %d!\n", nama, dokter_baru.id);
 }
