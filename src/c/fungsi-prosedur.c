@@ -407,3 +407,15 @@ void lihatDenah(User current_user, MatriksRuangan denah) {
         }
     }
 }
+
+void lihatAntrean(User current_user, MatriksRuangan denah) {
+    lihatDenah(current_user, denah);
+    for (int i = 0; i < denah.row; i++) {
+        for (int j = 0; j < denah.column; j++) {
+            if (isUserValid(denah.ruang[i][j].dokter)) {
+                printInfoRuangan(denah, i, j);
+                printf("\n");
+            }
+        }
+    }
+}
