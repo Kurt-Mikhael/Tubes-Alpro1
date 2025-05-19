@@ -409,6 +409,14 @@ void lihatDenah(User current_user, MatriksRuangan denah) {
 }
 
 void lihatAntrean(User current_user, MatriksRuangan denah) {
+    
+    if (!isUserValid(current_user)) {
+        printf("Login untuk melihat seluruh antrean!\n");
+        return;
+    } else if (strcasecmp(current_user.role, "manajer") != 0) {
+        printf("Kamu bukan manajer rumah sakit, lamar kerja jadi manajer dulu ya...\n");
+        return;
+    }
     lihatDenah(current_user, denah);
     for (int i = 0; i < denah.row; i++) {
         for (int j = 0; j < denah.column; j++) {
