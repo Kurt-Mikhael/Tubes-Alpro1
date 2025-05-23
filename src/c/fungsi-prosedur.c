@@ -513,3 +513,49 @@ void tambahDokter(User current_user, UsernameSet* username, ListUser* database) 
     addUsernameToSet(username, dokter_baru.username);
     printf("Dokter %s berhasil ditambahkan dengan ID %d!\n", nama, dokter_baru.id);
 }
+
+void MinumObat(User* current_user){
+    if (!isUserValid(current_user)) {
+        printf("Login untuk melihat seluruh antrean!\n");
+        return;
+    } else if (strcasecmp(current_user.role, "manajer") != 0) {
+        printf("Kamu bukan manajer rumah sakit, lamar kerja jadi manajer dulu ya...\n");
+        return;
+    }
+    else if (strcasecmp(current_user.role, "dokter") != 0) {
+        printf("anda kan yang ngasih obat\n");
+        return;
+    }
+
+    if(current_user ->invetory.jumlah == 0){
+        printf("obat abis bang\n");
+        return;
+    }
+
+    printf("============ DAFTAR OBAT ============\n");
+
+    for(int i = 0; i < current_user->inventory.jumlah; i++){
+        printf("%d. %s\n", i+ 1, current_user->inventory.data[i].nama_obat);
+    }
+
+    int pilihan;
+    printf(">>>Pilih obat untuk diminum : ");
+    scanf("%d", &pilihan);
+
+    if(pilihan < 1 || pilihan > current_user->inventory.jumlah){
+        printf("Pilihan tidak tersedia!\n");
+        return;
+    }
+
+    Obat* obat_pilihan = &current_user->inventory.data[pilihan - 1];
+
+    pushStack(&current_user->perut, *obat_pilihan);
+    
+    for(int i = pilihan - 1; i < current_user->inventory.jumlah - 1; i++){
+        current_user->inventory.data[i] = current_user->inventory.data[i + 1];
+
+    }
+    current_user->inventory.jumlah--;
+
+    printf("GULUKGULUKGULUK... %s berhasil diminum!!!\n", obat);
+}
